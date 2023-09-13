@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+message Position
+{
+    optional int32 x = 1;
+    optional int32 y = 2;
+}
+message RedZone
+{
+    optional Position pos = 1;
+    optional int32 radius = 2;
+}
+
+message SoldierStatus
+{
+    optional bool is_alive = 1;
+    optional Position pos = 2;
+}
+
+service Alert
+{
+    rpc SendZone(RedZone) returns (SoldierStatus) {}
+}
