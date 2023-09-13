@@ -1,7 +1,4 @@
-# python3 -m grpc_tools.protoc -I. --python_out=. --pyi_out=. --grpc_python_out=. test.proto
-
 from __future__ import print_function
-
 import logging
 import grpc
 import test_pb2
@@ -25,5 +22,4 @@ def run():
 
 
 if __name__ == "__main__":
-    logging.basicConfig()
     run()

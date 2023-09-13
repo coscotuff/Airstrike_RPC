@@ -1,6 +1,5 @@
 from concurrent import futures
 import logging
-
 import grpc
 import test_pb2
 import test_pb2_grpc
@@ -28,5 +27,4 @@ def serve():
     server.wait_for_termination()
     
 if __name__ == "__main__":
-    logging.basicConfig()
     serve()
