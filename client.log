@@ -1,0 +1,4 @@
+2023-09-13 19:55:03,861 ALERT, received red zone from detector. Executing commander duties...
+2023-09-13 19:55:03,861 Red zone coordinates: [0,0]; Radius: 2
+2023-09-13 19:55:03,871 Soldier status: True
+2023-09-13 19:55:03,871 Soldier position: 3, 0
