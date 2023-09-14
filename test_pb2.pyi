@@ -21,9 +21,9 @@ class RedZone(_message.Message):
     def __init__(self, pos: _Optional[_Union[Position, _Mapping]] = ..., radius: _Optional[int] = ...) -> None: ...
 
 class SoldierStatus(_message.Message):
-    __slots__ = ["is_alive", "pos"]
+    __slots__ = ["is_alive", "is_hit"]
     IS_ALIVE_FIELD_NUMBER: _ClassVar[int]
-    POS_FIELD_NUMBER: _ClassVar[int]
+    IS_HIT_FIELD_NUMBER: _ClassVar[int]
     is_alive: bool
-    pos: Position
-    def __init__(self, is_alive: bool = ..., pos: _Optional[_Union[Position, _Mapping]] = ...) -> None: ...
+    is_hit: bool
+    def __init__(self, is_alive: bool = ..., is_hit: bool = ...) -> None: ...

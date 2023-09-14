@@ -16,7 +16,7 @@ message RedZone
 message SoldierStatus
 {
     optional bool is_alive = 1;
-    optional Position pos = 2;
+    optional bool is_hit = 2;
 }
 
 service Alert

@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\ntest.proto\"6\n\x08Position\x12\x0e\n\x01x\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x0e\n\x01y\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x04\n\x02_xB\x04\n\x02_y\"N\n\x07RedZone\x12\x1b\n\x03pos\x18\x01 \x01(\x0b\x32\t.PositionH\x00\x88\x01\x01\x12\x13\n\x06radius\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x06\n\x04_posB\t\n\x07_radius\"X\n\rSoldierStatus\x12\x15\n\x08is_alive\x18\x01 \x01(\x08H\x00\x88\x01\x01\x12\x1b\n\x03pos\x18\x02 \x01(\x0b\x32\t.PositionH\x01\x88\x01\x01\x42\x0b\n\t_is_aliveB\x06\n\x04_pos2/\n\x05\x41lert\x12&\n\x08SendZone\x12\x08.RedZone\x1a\x0e.SoldierStatus\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\ntest.proto\"6\n\x08Position\x12\x0e\n\x01x\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x0e\n\x01y\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x04\n\x02_xB\x04\n\x02_y\"N\n\x07RedZone\x12\x1b\n\x03pos\x18\x01 \x01(\x0b\x32\t.PositionH\x00\x88\x01\x01\x12\x13\n\x06radius\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x06\n\x04_posB\t\n\x07_radius\"S\n\rSoldierStatus\x12\x15\n\x08is_alive\x18\x01 \x01(\x08H\x00\x88\x01\x01\x12\x13\n\x06is_hit\x18\x02 \x01(\x08H\x01\x88\x01\x01\x42\x0b\n\t_is_aliveB\t\n\x07_is_hit2/\n\x05\x41lert\x12&\n\x08SendZone\x12\x08.RedZone\x1a\x0e.SoldierStatus\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -26,7 +26,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_REDZONE']._serialized_start=70
   _globals['_REDZONE']._serialized_end=148
   _globals['_SOLDIERSTATUS']._serialized_start=150
-  _globals['_SOLDIERSTATUS']._serialized_end=238
-  _globals['_ALERT']._serialized_start=240
-  _globals['_ALERT']._serialized_end=287
+  _globals['_SOLDIERSTATUS']._serialized_end=233
+  _globals['_ALERT']._serialized_start=235
+  _globals['_ALERT']._serialized_end=282
 # @@protoc_insertion_point(module_scope)
