@@ -22,8 +22,7 @@ logger.setLevel(logging.DEBUG)
 
 class Server(connector_pb2_grpc.PassAlertServicer):
     def __init__(self):
-        self.initial_set = False
-        self.commander = -1
+        self.commander = -70
         self.battalion = [i for i in range(1, 6)]
 
     def SendAlert(self, request, context):
@@ -37,9 +36,9 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         )
         logger.debug("Executing connector duties...")
 
-        if self.initial_set == False:
-            self.intitial_set = True
+        if self.commander == -70:
             self.commander = random.sample(self.battalion, 1)[0]
+            logger.debug("Initial commander: " + str(self.commander))
             # self.commander = 1
 
         with grpc.insecure_channel("localhost:5005" + str(self.commander)) as channel:
@@ -60,7 +59,8 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         if self.commander == -1:
             # Game over
             logger.debug("Game over")
-            self.initial_set = False
+            print("Sorry, you lose!")
+            exit(0)
 
         return connector_pb2.Hit(
             hits=response.hit_count, kills=response.death_count, points=response.points
