@@ -1,5 +1,14 @@
-2023-09-15 21:14:27,740 Received strike f2023-09-15 21:14:27,748 Received alert: 0, 0; Radius: 2
-2023-09-15 21:14:27,7482023-09-15 21:14:27,749 Hits: 0
-2023-09-15 21:14:27,749 Kills: 0
-2023-09-15 21:14:27,749 Points added: 0
-2023-09-15 21:14:27,749 Current commander: 1
+2023-09-15 22:06:51,249 Received strike from enemy: 6, 9; Type: 3
+2023-09-15 22:06:51,249 Executing connector duties...
+2023-09-15 22:06:51,284 Hits: 0
+2023-09-15 22:06:51,284 Kills: 0
+2023-09-15 22:06:51,284 Points added: 0
+2023-09-15 22:06:51,284 Current commander: 1
+2023-09-15 22:06:51,284 Returned commander: 1
+2023-09-15 22:06:59,864 Received strike from enemy: 6, 9; Type: 3
+2023-09-15 22:06:59,864 Executing connector duties...
+2023-09-15 22:06:59,886 Hits: 0
+2023-09-15 22:06:59,886 Kills: 0
+2023-09-15 22:06:59,886 Points added: 0
+2023-09-15 22:06:59,886 Current commander: 2
+2023-09-15 22:06:59,886 Returned commander: 2

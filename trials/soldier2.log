@@ -1,0 +1,10 @@
+2023-09-15 22:06:45,810 Soldier speed: 3
+2023-09-15 22:06:51,271 Received red zone from commander
+2023-09-15 22:06:51,271 Coordinates received: 6, 9
+2023-09-15 22:06:51,271 Radius received: 3
+2023-09-15 22:06:51,271 Soldier position: 4, 6
+2023-09-15 22:06:51,271 Soldier lives: 5
+2023-09-15 22:06:59,866 Received alert: 6, 9; Radius: 3
+2023-09-15 22:06:59,867 Executing commander duties...
+2023-09-15 22:06:59,875 Soldier position: 4, 6
+2023-09-15 22:06:59,876 Soldier lives: 5

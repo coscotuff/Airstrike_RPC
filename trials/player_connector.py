@@ -57,9 +57,9 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         logger.debug("Current commander: " + str(response.current_commander))
 
         self.commander = response.current_commander
-
         if self.commander == -1:
             # Game over
+            logger.debug("Game over")
             self.initial_set = False
 
         return connector_pb2.Hit(

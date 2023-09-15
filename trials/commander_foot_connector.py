@@ -5,22 +5,18 @@
 import logging
 import random
 from concurrent import futures
+import sys
 
 import grpc
 import soldier_pb2
 import soldier_pb2_grpc
 
-logging.basicConfig(
-    filename="server.log", format="%(asctime)s %(message)s", filemode="w"
-)
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
 
 
 class Server(soldier_pb2_grpc.AlertServicer):
-    def __init__(self):
-        self.node_number = 1
+    def __init__(self, node_number):
+        self.node_number = node_number
         self.points = 5
         self.is_commander = False
         self.N = 10
@@ -73,6 +69,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
                     if self.lives == 0:
                         death_count += 1
                         added_points += self.points
+        
         current_commander = self.node_number
 
         if self.lives == 0:
@@ -102,6 +99,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
         logger.debug("Soldier hit")
         if self.lives == 0:
             logger.debug("Soldier died")
+        logger.debug("Soldier lives: " + str(self.lives))
+        logger.debug("Soldier position: " + str(self.x) + ", " + str(self.y))
         return True
 
     def move(self, hit_x, hit_y, radius):
@@ -121,6 +120,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
                 self.y = max(self.y - self.speed, 0)
             else:
                 return self.RegisterHit()
+        logger.debug("Soldier position: " + str(self.x) + ", " + str(self.y))
+        logger.debug("Soldier lives: " + str(self.lives))
         return False
 
     def UpdateStatus(self, request, context):
@@ -142,10 +143,10 @@ class Server(soldier_pb2_grpc.AlertServicer):
         return
 
 
-def serve():
-    port = 50051
+def serve(node_number):
+    port = 50050 + node_number
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    soldier_pb2_grpc.add_AlertServicer_to_server(Server(), server)
+    soldier_pb2_grpc.add_AlertServicer_to_server(Server(node_number=node_number), server)
     server.add_insecure_port("[::]:" + str(port))
     server.start()
     print("Server started listening on port " + str(port) + ".")
@@ -153,4 +154,19 @@ def serve():
 
 
 if __name__ == "__main__":
-    serve()
+    # Accept node number as command line argument
+    node_number = 1
+    if len(sys.argv) > 1:
+        node_number = int(sys.argv[1])
+        if node_number < 1 or node_number > 5:
+            print("Invalid node number. Please enter a value from 1 to 5.")
+            sys.exit()
+        else:
+            print("Node number: " + str(node_number))
+            port = 50050 + node_number
+    logging.basicConfig(
+        filename="soldier"+str(node_number)+".log", format="%(asctime)s %(message)s", filemode="w"
+    )
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    serve(node_number)
