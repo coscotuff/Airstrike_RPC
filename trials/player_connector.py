@@ -2,14 +2,15 @@
 # It acts as a server for the opposing team to send the red zone and return the appropriate response.
 # It acts as a client for the commander to send the strike and get the appropriate response.
 
-from concurrent import futures
 import logging
-import grpc
+import random
+from concurrent import futures
+
 import connector_pb2
 import connector_pb2_grpc
-import soldier_pb2_grpc
+import grpc
 import soldier_pb2
-import random
+import soldier_pb2_grpc
 
 logging.basicConfig(
     filename="server.log", format="%(asctime)s %(message)s", filemode="w"
@@ -40,7 +41,7 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             self.intitial_set = True
             self.commander = random.sample(self.battalion, 1)[0]
             # self.commander = 1
-            
+
         with grpc.insecure_channel("localhost:5005" + str(self.commander)) as channel:
             stub = soldier_pb2_grpc.AlertStub(channel)
             response = stub.SendZone(
@@ -56,7 +57,7 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         logger.debug("Current commander: " + str(response.current_commander))
 
         self.commander = response.current_commander
-        
+
         if self.commander == -1:
             # Game over
             self.initial_set = False
@@ -76,4 +77,5 @@ def serve():
 
 
 if __name__ == "__main__":
+    # Take port number as command line argument
     serve()

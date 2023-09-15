@@ -15,7 +15,7 @@ class PassAlertStub(object):
             channel: A grpc.Channel.
         """
         self.SendAlert = channel.unary_unary(
-                '/PassAlert/SendAlert',
+                '/connector.PassAlert/SendAlert',
                 request_serializer=connector__pb2.MissileStrike.SerializeToString,
                 response_deserializer=connector__pb2.Hit.FromString,
                 )
@@ -40,7 +40,7 @@ def add_PassAlertServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'PassAlert', rpc_method_handlers)
+            'connector.PassAlert', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -59,7 +59,7 @@ class PassAlert(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/PassAlert/SendAlert',
+        return grpc.experimental.unary_unary(request, target, '/connector.PassAlert/SendAlert',
             connector__pb2.MissileStrike.SerializeToString,
             connector__pb2.Hit.FromString,
             options, channel_credentials,

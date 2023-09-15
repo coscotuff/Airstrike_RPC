@@ -2,12 +2,13 @@
 # Could act as a server for the opposing team to send the red zone and return the appropriate response, as well as to teh commamnder as a foot soldier
 # Could act as a client for the foot soldiers and potentially secondary commander client to send the strike to get the appropriate response.
 
-from concurrent import futures
 import logging
+import random
+from concurrent import futures
+
 import grpc
 import soldier_pb2
 import soldier_pb2_grpc
-import random
 
 logging.basicConfig(
     filename="server.log", format="%(asctime)s %(message)s", filemode="w"

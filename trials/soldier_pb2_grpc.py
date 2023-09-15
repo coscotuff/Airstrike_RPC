@@ -15,17 +15,17 @@ class AlertStub(object):
             channel: A grpc.Channel.
         """
         self.SendZone = channel.unary_unary(
-                '/Alert/SendZone',
+                '/soldier.Alert/SendZone',
                 request_serializer=soldier__pb2.RedZone.SerializeToString,
                 response_deserializer=soldier__pb2.AttackStatus.FromString,
                 )
         self.UpdateStatus = channel.unary_unary(
-                '/Alert/UpdateStatus',
+                '/soldier.Alert/UpdateStatus',
                 request_serializer=soldier__pb2.RedZone.SerializeToString,
                 response_deserializer=soldier__pb2.SoldierStatus.FromString,
                 )
         self.PromoteSoldier = channel.unary_unary(
-                '/Alert/PromoteSoldier',
+                '/soldier.Alert/PromoteSoldier',
                 request_serializer=soldier__pb2.Battalion.SerializeToString,
                 response_deserializer=soldier__pb2.void.FromString,
                 )
@@ -72,7 +72,7 @@ def add_AlertServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'Alert', rpc_method_handlers)
+            'soldier.Alert', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -91,7 +91,7 @@ class Alert(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Alert/SendZone',
+        return grpc.experimental.unary_unary(request, target, '/soldier.Alert/SendZone',
             soldier__pb2.RedZone.SerializeToString,
             soldier__pb2.AttackStatus.FromString,
             options, channel_credentials,
@@ -108,7 +108,7 @@ class Alert(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Alert/UpdateStatus',
+        return grpc.experimental.unary_unary(request, target, '/soldier.Alert/UpdateStatus',
             soldier__pb2.RedZone.SerializeToString,
             soldier__pb2.SoldierStatus.FromString,
             options, channel_credentials,
@@ -125,7 +125,7 @@ class Alert(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Alert/PromoteSoldier',
+        return grpc.experimental.unary_unary(request, target, '/soldier.Alert/PromoteSoldier',
             soldier__pb2.Battalion.SerializeToString,
             soldier__pb2.void.FromString,
             options, channel_credentials,
