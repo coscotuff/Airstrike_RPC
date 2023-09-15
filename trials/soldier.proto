@@ -1,0 +1,44 @@
+// Proto file for the commander to connect between the 
+// python3 -m grpc_tools.protoc -I. --python_out=. --pyi_out=. --grpc_python_out=. soldier.proto
+
+syntax = "proto3";
+
+message Position
+{
+    optional int32 x = 1;
+    optional int32 y = 2;
+}
+message RedZone
+{
+    optional Position pos = 1;
+    optional int32 radius = 2;
+}
+
+message AttackStatus
+{
+    optional int32 death_count = 1;
+    optional int32 hit_count = 2;
+    optional int32 points = 3;
+    optional int32 current_commander = 4;
+}
+
+message SoldierStatus
+{
+    optional bool is_hit = 1;
+    optional bool is_sink = 2;
+    optional int32 points = 3;
+}
+
+message Battalion
+{
+    repeated int32 soldier_ids = 1;
+}
+
+message void {}
+
+service Alert
+{
+    rpc SendZone(RedZone) returns (AttackStatus) {}
+    rpc UpdateStatus(RedZone) returns (SoldierStatus) {}
+    rpc PromoteSoldier(Battalion) returns (void) {}
+}

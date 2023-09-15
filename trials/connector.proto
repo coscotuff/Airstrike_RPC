@@ -1,0 +1,27 @@
+// Proto file for the connector between a team and its enemy.
+// python3 -m grpc_tools.protoc -I. --python_out=. --pyi_out=. --grpc_python_out=. connector.proto
+
+syntax = "proto3";
+
+message Position
+{
+    optional int32 x = 1;
+    optional int32 y = 2;
+}
+message MissileStrike
+{
+    optional Position pos = 1;
+    optional int32 type = 2;
+}
+
+message Hit
+{
+    optional int32 hits = 1;
+    optional int32 kills = 2;
+    optional int32 points = 3;
+}
+
+service PassAlert
+{
+    rpc SendAlert(MissileStrike) returns (Hit) {}
+}
