@@ -7,6 +7,8 @@ import logging
 import grpc
 import connector_pb2
 import connector_pb2_grpc
+import soldier_pb2_grpc
+import soldier_pb2
 import random
 
 logging.basicConfig(
@@ -17,9 +19,9 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
 
-class Server(connector_pb2_grpc.AlertServicer):
+class Server(connector_pb2_grpc.PassAlertServicer):
     def __init__(self):
-        self.intial_set = False
+        self.initial_set = False
         self.commander = -1
         self.battalion = [i for i in range(1, 6)]
 
@@ -37,12 +39,13 @@ class Server(connector_pb2_grpc.AlertServicer):
         if self.initial_set == False:
             self.intitial_set = True
             self.commander = random.sample(self.battalion, 1)[0]
+            # self.commander = 1
             
         with grpc.insecure_channel("localhost:5005" + str(self.commander)) as channel:
-            stub = connector_pb2_grpc.AlertStub(channel)
+            stub = soldier_pb2_grpc.AlertStub(channel)
             response = stub.SendZone(
-                connector_pb2.MissileStrike(
-                    pos=connector_pb2.Position(x=request.pos.x, y=request.pos.y),
+                soldier_pb2.RedZone(
+                    pos=soldier_pb2.Position(x=request.pos.x, y=request.pos.y),
                     radius=request.type,
                 )
             )
@@ -65,7 +68,7 @@ class Server(connector_pb2_grpc.AlertServicer):
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    connector_pb2_grpc.add_AlertServicer_to_server(Server(), server)
+    connector_pb2_grpc.add_PassAlertServicer_to_server(Server(), server)
     server.add_insecure_port("[::]:50050")
     server.start()
     print("Server started listening on port 50050")

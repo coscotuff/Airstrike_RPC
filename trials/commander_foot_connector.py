@@ -29,6 +29,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
         logger.debug("Soldier speed: " + str(self.speed))
         self.lives = 5
         self.battalion = [i for i in range(1, 6)]
+        # self.battalion = [i for i in range(1, 2)]
 
     def SendZone(self, request, context):
         logger.debug(
@@ -52,7 +53,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
                     response = stub.UpdateStatus(
                         soldier_pb2.RedZone(
                             pos=soldier_pb2.Position(x=request.pos.x, y=request.pos.y),
-                            radius=request.range,
+                            radius=request.radius,
                         )
                     )
 

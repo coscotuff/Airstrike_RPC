@@ -3,14 +3,14 @@
 
 syntax = "proto3";
 
-message Position
+message Coordinate
 {
     optional int32 x = 1;
     optional int32 y = 2;
 }
 message MissileStrike
 {
-    optional Position pos = 1;
+    optional Coordinate pos = 1;
     optional int32 type = 2;
 }
 

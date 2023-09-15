@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0f\x63onnector.proto\"6\n\x08Position\x12\x0e\n\x01x\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x0e\n\x01y\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x04\n\x02_xB\x04\n\x02_y\"P\n\rMissileStrike\x12\x1b\n\x03pos\x18\x01 \x01(\x0b\x32\t.PositionH\x00\x88\x01\x01\x12\x11\n\x04type\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x06\n\x04_posB\x07\n\x05_type\"_\n\x03Hit\x12\x11\n\x04hits\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x12\n\x05kills\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06points\x18\x03 \x01(\x05H\x02\x88\x01\x01\x42\x07\n\x05_hitsB\x08\n\x06_killsB\t\n\x07_points20\n\tPassAlert\x12#\n\tSendAlert\x12\x0e.MissileStrike\x1a\x04.Hit\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0f\x63onnector.proto\"8\n\nCoordinate\x12\x0e\n\x01x\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x0e\n\x01y\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x04\n\x02_xB\x04\n\x02_y\"R\n\rMissileStrike\x12\x1d\n\x03pos\x18\x01 \x01(\x0b\x32\x0b.CoordinateH\x00\x88\x01\x01\x12\x11\n\x04type\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x06\n\x04_posB\x07\n\x05_type\"_\n\x03Hit\x12\x11\n\x04hits\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x12\n\x05kills\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06points\x18\x03 \x01(\x05H\x02\x88\x01\x01\x42\x07\n\x05_hitsB\x08\n\x06_killsB\t\n\x07_points20\n\tPassAlert\x12#\n\tSendAlert\x12\x0e.MissileStrike\x1a\x04.Hit\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,12 +21,12 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'connector_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _globals['_POSITION']._serialized_start=19
-  _globals['_POSITION']._serialized_end=73
-  _globals['_MISSILESTRIKE']._serialized_start=75
-  _globals['_MISSILESTRIKE']._serialized_end=155
-  _globals['_HIT']._serialized_start=157
-  _globals['_HIT']._serialized_end=252
-  _globals['_PASSALERT']._serialized_start=254
-  _globals['_PASSALERT']._serialized_end=302
+  _globals['_COORDINATE']._serialized_start=19
+  _globals['_COORDINATE']._serialized_end=75
+  _globals['_MISSILESTRIKE']._serialized_start=77
+  _globals['_MISSILESTRIKE']._serialized_end=159
+  _globals['_HIT']._serialized_start=161
+  _globals['_HIT']._serialized_end=256
+  _globals['_PASSALERT']._serialized_start=258
+  _globals['_PASSALERT']._serialized_end=306
 # @@protoc_insertion_point(module_scope)

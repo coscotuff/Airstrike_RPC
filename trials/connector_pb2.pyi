@@ -4,7 +4,7 @@ from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Opti
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class Position(_message.Message):
+class Coordinate(_message.Message):
     __slots__ = ["x", "y"]
     X_FIELD_NUMBER: _ClassVar[int]
     Y_FIELD_NUMBER: _ClassVar[int]
@@ -16,9 +16,9 @@ class MissileStrike(_message.Message):
     __slots__ = ["pos", "type"]
     POS_FIELD_NUMBER: _ClassVar[int]
     TYPE_FIELD_NUMBER: _ClassVar[int]
-    pos: Position
+    pos: Coordinate
     type: int
-    def __init__(self, pos: _Optional[_Union[Position, _Mapping]] = ..., type: _Optional[int] = ...) -> None: ...
+    def __init__(self, pos: _Optional[_Union[Coordinate, _Mapping]] = ..., type: _Optional[int] = ...) -> None: ...
 
 class Hit(_message.Message):
     __slots__ = ["hits", "kills", "points"]
