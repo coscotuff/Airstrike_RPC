@@ -1,5 +1,171 @@
-2023-09-14 19:02:37,775 Soldier speed: 1
-2023-09-14 19:02:39,176 Received red zone from commander
-2023-09-14 19:02:39,176 Coordinates received: 0, 0
-2023-09-14 19:02:39,176 Radius received: 2
-2023-09-14 19:02:39,176 Soldier hit
+2023-09-15 23:15:18,218 Received strike from enemy: 6, 4; Type: 4
+2023-09-15 23:15:18,218 Executing connector duties...
+2023-09-15 23:15:18,218 Initial commander: 1
+2023-09-15 23:15:18,241 Hits: 2
+2023-09-15 23:15:18,241 Kills: 0
+2023-09-15 23:15:18,241 Points added: 2
+2023-09-15 23:15:18,241 Current commander: 1
+2023-09-15 23:15:45,989 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:15:45,989 Executing connector duties...
+2023-09-15 23:15:45,997 Hits: 2
+2023-09-15 23:15:45,997 Kills: 0
+2023-09-15 23:15:45,997 Points added: 2
+2023-09-15 23:15:45,997 Current commander: 1
+2023-09-15 23:15:46,748 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:15:46,748 Executing connector duties...
+2023-09-15 23:15:46,755 Hits: 2
+2023-09-15 23:15:46,755 Kills: 0
+2023-09-15 23:15:46,755 Points added: 2
+2023-09-15 23:15:46,755 Current commander: 1
+2023-09-15 23:15:47,422 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:15:47,422 Executing connector duties...
+2023-09-15 23:15:47,430 Hits: 2
+2023-09-15 23:15:47,430 Kills: 2
+2023-09-15 23:15:47,430 Points added: 12
+2023-09-15 23:15:47,430 Current commander: 4
+2023-09-15 23:15:54,048 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:15:54,049 Executing connector duties...
+2023-09-15 23:15:54,060 Hits: 0
+2023-09-15 23:15:54,060 Kills: 0
+2023-09-15 23:15:54,060 Points added: 0
+2023-09-15 23:15:54,060 Current commander: 4
+2023-09-15 23:16:02,261 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:16:02,261 Executing connector duties...
+2023-09-15 23:16:02,265 Hits: 0
+2023-09-15 23:16:02,265 Kills: 0
+2023-09-15 23:16:02,265 Points added: 0
+2023-09-15 23:16:02,265 Current commander: 4
+2023-09-15 23:16:02,979 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:16:02,979 Executing connector duties...
+2023-09-15 23:16:02,983 Hits: 0
+2023-09-15 23:16:02,984 Kills: 0
+2023-09-15 23:16:02,984 Points added: 0
+2023-09-15 23:16:02,984 Current commander: 4
+2023-09-15 23:16:03,611 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:16:03,611 Executing connector duties...
+2023-09-15 23:16:03,616 Hits: 0
+2023-09-15 23:16:03,616 Kills: 0
+2023-09-15 23:16:03,616 Points added: 0
+2023-09-15 23:16:03,616 Current commander: 4
+2023-09-15 23:16:04,353 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:16:04,353 Executing connector duties...
+2023-09-15 23:16:04,357 Hits: 0
+2023-09-15 23:16:04,357 Kills: 0
+2023-09-15 23:16:04,357 Points added: 0
+2023-09-15 23:16:04,357 Current commander: 4
+2023-09-15 23:16:05,157 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:16:05,157 Executing connector duties...
+2023-09-15 23:16:05,161 Hits: 0
+2023-09-15 23:16:05,161 Kills: 0
+2023-09-15 23:16:05,161 Points added: 0
+2023-09-15 23:16:05,161 Current commander: 4
+2023-09-15 23:16:06,355 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:16:06,355 Executing connector duties...
+2023-09-15 23:16:06,359 Hits: 0
+2023-09-15 23:16:06,359 Kills: 0
+2023-09-15 23:16:06,359 Points added: 0
+2023-09-15 23:16:06,359 Current commander: 4
+2023-09-15 23:16:07,096 Received strike from enemy: 6, 8; Type: 4
+2023-09-15 23:16:07,096 Executing connector duties...
+2023-09-15 23:16:07,100 Hits: 0
+2023-09-15 23:16:07,101 Kills: 0
+2023-09-15 23:16:07,101 Points added: 0
+2023-09-15 23:16:07,101 Current commander: 4
+2023-09-15 23:18:11,628 Received strike from enemy: 7, 1; Type: 4
+2023-09-15 23:18:11,628 Executing connector duties...
+2023-09-15 23:18:11,632 Hits: 2
+2023-09-15 23:18:11,632 Kills: 0
+2023-09-15 23:18:11,632 Points added: 2
+2023-09-15 23:18:11,632 Current commander: 4
+2023-09-15 23:18:12,457 Received strike from enemy: 7, 1; Type: 4
+2023-09-15 23:18:12,457 Executing connector duties...
+2023-09-15 23:18:12,461 Hits: 1
+2023-09-15 23:18:12,461 Kills: 1
+2023-09-15 23:18:12,461 Points added: 6
+2023-09-15 23:18:12,461 Current commander: 4
+2023-09-15 23:18:20,581 Received strike from enemy: 7, 1; Type: 4
+2023-09-15 23:18:20,581 Executing connector duties...
+2023-09-15 23:18:20,586 Hits: 1
+2023-09-15 23:18:20,586 Kills: 1
+2023-09-15 23:18:20,586 Points added: 6
+2023-09-15 23:18:20,586 Current commander: 5
+2023-09-15 23:19:11,926 Received strike from enemy: 0, 4; Type: 4
+2023-09-15 23:19:11,927 Executing connector duties...
+2023-09-15 23:19:11,928 Hits: 0
+2023-09-15 23:19:11,928 Kills: 0
+2023-09-15 23:19:11,928 Points added: 0
+2023-09-15 23:19:11,928 Current commander: 5
+2023-09-15 23:19:12,832 Received strike from enemy: 0, 4; Type: 4
+2023-09-15 23:19:12,832 Executing connector duties...
+2023-09-15 23:19:12,834 Hits: 0
+2023-09-15 23:19:12,834 Kills: 0
+2023-09-15 23:19:12,834 Points added: 0
+2023-09-15 23:19:12,834 Current commander: 5
+2023-09-15 23:19:13,769 Received strike from enemy: 0, 4; Type: 4
+2023-09-15 23:19:13,769 Executing connector duties...
+2023-09-15 23:19:13,771 Hits: 0
+2023-09-15 23:19:13,771 Kills: 0
+2023-09-15 23:19:13,771 Points added: 0
+2023-09-15 23:19:13,771 Current commander: 5
+2023-09-15 23:19:14,881 Received strike from enemy: 0, 4; Type: 4
+2023-09-15 23:19:14,881 Executing connector duties...
+2023-09-15 23:19:14,883 Hits: 0
+2023-09-15 23:19:14,883 Kills: 0
+2023-09-15 23:19:14,883 Points added: 0
+2023-09-15 23:19:14,883 Current commander: 5
+2023-09-15 23:19:16,006 Received strike from enemy: 0, 4; Type: 4
+2023-09-15 23:19:16,007 Executing connector duties...
+2023-09-15 23:19:16,008 Hits: 0
+2023-09-15 23:19:16,008 Kills: 0
+2023-09-15 23:19:16,008 Points added: 0
+2023-09-15 23:19:16,008 Current commander: 5
+2023-09-15 23:19:17,215 Received strike from enemy: 0, 4; Type: 4
+2023-09-15 23:19:17,215 Executing connector duties...
+2023-09-15 23:19:17,216 Hits: 0
+2023-09-15 23:19:17,216 Kills: 0
+2023-09-15 23:19:17,216 Points added: 0
+2023-09-15 23:19:17,216 Current commander: 5
+2023-09-15 23:19:46,652 Received strike from enemy: 4, 8; Type: 5
+2023-09-15 23:19:46,652 Executing connector duties...
+2023-09-15 23:19:46,654 Hits: 1
+2023-09-15 23:19:46,655 Kills: 0
+2023-09-15 23:19:46,655 Points added: 1
+2023-09-15 23:19:46,655 Current commander: 5
+2023-09-15 23:19:47,541 Received strike from enemy: 4, 8; Type: 5
+2023-09-15 23:19:47,541 Executing connector duties...
+2023-09-15 23:19:47,543 Hits: 1
+2023-09-15 23:19:47,543 Kills: 0
+2023-09-15 23:19:47,543 Points added: 1
+2023-09-15 23:19:47,543 Current commander: 5
+2023-09-15 23:19:48,308 Received strike from enemy: 4, 8; Type: 5
+2023-09-15 23:19:48,308 Executing connector duties...
+2023-09-15 23:19:48,309 Hits: 1
+2023-09-15 23:19:48,309 Kills: 1
+2023-09-15 23:19:48,309 Points added: 6
+2023-09-15 23:19:48,309 Current commander: -1
+2023-09-15 23:19:48,310 Game over
+2023-09-15 23:19:53,365 Received strike from enemy: 4, 8; Type: 5
+2023-09-15 23:19:53,365 Executing connector duties...
+2023-09-15 23:19:53,367 Exception calling application: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:5005: Failed to connect to remote host: Connection refused"
+	debug_error_string = "UNKNOWN:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:5005: Failed to connect to remote host: Connection refused {grpc_status:14, created_time:"2023-09-15T23:19:53.366014941+05:30"}"
+>
+Traceback (most recent call last):
+  File "/home/coscotuff/.local/lib/python3.11/site-packages/grpc/_server.py", line 552, in _call_behavior
+    response_or_iterator = behavior(argument, context)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/coscotuff/Documents/Stuff/COLLEGE STUFF/4-1/ADVOS/Airstrike_RPC/trials/player_connector.py", line 47, in SendAlert
+    response = stub.SendZone(
+               ^^^^^^^^^^^^^^
+  File "/home/coscotuff/.local/lib/python3.11/site-packages/grpc/_channel.py", line 1161, in __call__
+    return _end_unary_response_blocking(state, call, False, None)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/coscotuff/.local/lib/python3.11/site-packages/grpc/_channel.py", line 1004, in _end_unary_response_blocking
+    raise _InactiveRpcError(state)  # pytype: disable=not-instantiable
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+grpc._channel._InactiveRpcError: <_InactiveRpcError of RPC that terminated with:
+	status = StatusCode.UNAVAILABLE
+	details = "failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:5005: Failed to connect to remote host: Connection refused"
+	debug_error_string = "UNKNOWN:failed to connect to all addresses; last error: UNKNOWN: ipv4:127.0.0.1:5005: Failed to connect to remote host: Connection refused {grpc_status:14, created_time:"2023-09-15T23:19:53.366014941+05:30"}"
+>

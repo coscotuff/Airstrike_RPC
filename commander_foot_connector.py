@@ -13,12 +13,13 @@ import soldier_pb2_grpc
 
 
 class Server(soldier_pb2_grpc.AlertServicer):
-    def __init__(self, node_number, lives):
+    def __init__(self, node_number, lives, player, N, M):
         self.node_number = node_number
         self.lives = lives
         self.points = lives
+        self.player = player
 
-        self.N = 10
+        self.N = N
 
         self.x = random.randint(0, self.N - 1)
         self.y = random.randint(0, self.N - 1)
@@ -26,7 +27,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
         logger.debug("Soldier speed: " + str(self.speed))
 
-        self.battalion = [i for i in range(1, 6)]
+        self.battalion = [i for i in range(1, M + 1)]
 
     def SendZone(self, request, context):
         logger.debug(
@@ -42,10 +43,16 @@ class Server(soldier_pb2_grpc.AlertServicer):
         hit_count = 0
         death_count = 0
         added_points = 0
+        port_base = 5005
+
+        if self.player == 1:
+            port_base = 6006
 
         for i in self.battalion:
             if i != self.node_number:
-                with grpc.insecure_channel("localhost:5005" + str(i)) as channel:
+                with grpc.insecure_channel(
+                    "localhost:" + str(port_base) + str(i)
+                ) as channel:
                     stub = soldier_pb2_grpc.AlertStub(channel)
                     response = stub.UpdateStatus(
                         soldier_pb2.RedZone(
@@ -80,7 +87,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
                 current_commander = random.sample(self.battalion, 1)[0]
 
                 with grpc.insecure_channel(
-                    "localhost:5005" + str(current_commander)
+                    "localhost:" + str(port_base) + str(current_commander)
                 ) as channel:
                     stub = soldier_pb2_grpc.AlertStub(channel)
                     soldier_list = soldier_pb2.Battalion()
@@ -144,15 +151,14 @@ class Server(soldier_pb2_grpc.AlertServicer):
         return soldier_pb2.void()
 
 
-def serve(node_number, lives, player):
-    port = 0
+def serve(node_number, lives, player, N, M):
+    port = 50050
     if player == 1:
-        port = 50050 + node_number
-    else:
-        port = 60060 + node_number
+        port = 60060
+    port += node_number
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     soldier_pb2_grpc.add_AlertServicer_to_server(
-        Server(node_number=node_number, lives=lives), server
+        Server(node_number=node_number, lives=lives, player=player, N=N, M=M), server
     )
     server.add_insecure_port("[::]:" + str(port))
     server.start()
@@ -163,21 +169,35 @@ def serve(node_number, lives, player):
 if __name__ == "__main__":
     # Accept node number as command line argument
     node_number = 1
+    lives = random.rand(1, 5)
+    player = 0
+    port = 50050
+
     if len(sys.argv) > 1:
-        node_number = int(sys.argv[1])
-        lives = int(sys.argv[2])
-        player = int(sys.argv[3])  # Either A or B
-        if node_number < 1 or node_number > 5:
-            print("Invalid node number. Please enter a value from 1 to 5.")
+        player = int(sys.argv[1])  # Either A or B
+        if player != 0 or player != 1:
+            print("Invalid player number. Please enter 0 for A or 1 for B.")
+            sys.exit()
+        else:
+            print("Player: " + str(player))
+            if player == 1:
+                port = 60060
+        N = int(sys.argv[2])
+        M = int(sys.argv[3])
+        node_number = int(sys.argv[4])
+
+        if node_number < 1 or node_number > M:
+            print("Invalid node number. Please enter a value from 1 to " + str(M) + ".")
             sys.exit()
         else:
             print("Node number: " + str(node_number))
-            port = 50050 + node_number
+            port += node_number
+
     logging.basicConfig(
-        filename="soldier" + str(node_number) + ".log",
+        filename="player_" + str(player) + "_soldier_" + str(node_number) + ".log",
         format="%(asctime)s %(message)s",
         filemode="w",
     )
     logger = logging.getLogger()
     logger.setLevel(logging.DEBUG)
-    serve(node_number, lives, player)
+    serve(node_number, lives, player, N, M)

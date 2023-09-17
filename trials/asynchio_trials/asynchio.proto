@@ -1,0 +1,21 @@
+// python3 -m grpc_tools.protoc -I. --python_out=. --pyi_out=. --grpc_python_out=. asynchio.proto
+
+syntax = "proto3";
+package asynchio;
+
+message Status
+{
+    optional bool isAlive = 1;
+}
+
+message Confirmation
+{
+    optional int32 status_code = 1;
+}
+
+message void {}
+
+service Alert
+{
+    rpc endTurn(Status) returns (Confirmation) {}
+}
