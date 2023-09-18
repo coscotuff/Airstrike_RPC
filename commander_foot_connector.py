@@ -175,7 +175,7 @@ if __name__ == "__main__":
 
     if len(sys.argv) > 1:
         player = int(sys.argv[1])  # Either A or B
-        if player != 0 or player != 1:
+        if player != 0 and player != 1:
             print("Invalid player number. Please enter 0 for A or 1 for B.")
             sys.exit()
         else:
