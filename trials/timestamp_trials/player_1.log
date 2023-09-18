@@ -1,0 +1,6 @@
+2023-09-19 01:14:43,336 Timestamp received from client 283.3265075683594
+2023-09-19 01:14:43,336 Server Timestamp 281.25978231430054
+2023-09-19 01:14:43,337 Client Timestamp: 283.3265075683594
+2023-09-19 01:14:43,337 Server is the leader
+2023-09-19 01:14:43,337 Initiate function called by leader
+2023-09-19 01:14:45,272 Timestamp sent to server: 281.25978231430054

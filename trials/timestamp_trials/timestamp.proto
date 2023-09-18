@@ -1,0 +1,13 @@
+// python3 -m grpc_tools.protoc -I. --python_out=. --pyi_out=. --grpc_python_out=. timestamp.proto
+
+syntax = "proto3";
+
+message Empty {}
+
+message Timestamp {
+    float micros = 1;
+}
+
+service Exchange {
+    rpc order (Timestamp) returns (Empty) {};
+}
