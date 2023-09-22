@@ -41,4 +41,5 @@ service Alert
     rpc SendZone(RedZone) returns (AttackStatus) {}
     rpc UpdateStatus(RedZone) returns (SoldierStatus) {}
     rpc PromoteSoldier(Battalion) returns (void) {}
+    rpc InitiateAttack(void) returns (void) {}
 }

@@ -6,10 +6,13 @@ import logging
 import random
 from concurrent import futures
 import sys
+import threading
 
 import grpc
 import soldier_pb2
 import soldier_pb2_grpc
+import connector_pb2
+import connector_pb2_grpc
 
 
 class Server(soldier_pb2_grpc.AlertServicer):
@@ -25,9 +28,22 @@ class Server(soldier_pb2_grpc.AlertServicer):
         self.y = random.randint(0, self.N - 1)
         self.speed = random.randint(0, 4)
 
+        self.connector_port = 50050 + self.player * 10010
+
         logger.debug("Soldier speed: " + str(self.speed))
+        logger.debug("Soldier position: " + str(self.x) + ", " + str(self.y))
+        logger.debug("Connector port: " + str(self.connector_port))
 
         self.battalion = [i for i in range(1, M + 1)]
+
+        x = threading.Thread(target=self.RegisterNodeRPCCall)
+        x.start()
+
+    def RegisterNodeRPCCall(self):
+        with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
+            stub = connector_pb2_grpc.PassAlertStub(channel)
+            stub.RegisterNode(connector_pb2.Coordinate(x=self.x, y=self.y))
+            logging.debug("Registered self to connector")
 
     def SendZone(self, request, context):
         logger.debug(
@@ -149,7 +165,19 @@ class Server(soldier_pb2_grpc.AlertServicer):
         logger.debug("Soldier list: " + str(request.soldier_ids))
         self.battalion = [i for i in request.soldier_ids]
         return soldier_pb2.void()
-
+    
+    def InitiateAttack(self, request, context):
+        with grpc.insecure_channel("localhost:" + self.connector_port) as channel:
+            stub = connector_pb2_grpc.AlertStub(channel)
+            response = stub.Attack(
+                connector_pb2.MissileStrike(
+                    pos=connector_pb2.Coordinate(
+                        x=random.randn(0, self.N - 1), y=random.randn(0, self.N - 1)
+                    ),
+                    type=random.randn(1, 4),
+                )
+            )
+        return soldier_pb2.void()
 
 def serve(node_number, lives, player, N, M):
     port = 50050
@@ -163,13 +191,14 @@ def serve(node_number, lives, player, N, M):
     server.add_insecure_port("[::]:" + str(port))
     server.start()
     print("Server started listening on port " + str(port) + ".")
+    logger.debug("Soldier started listening on port " + str(port) + ".")
     server.wait_for_termination()
 
 
 if __name__ == "__main__":
     # Accept node number as command line argument
     node_number = 1
-    lives = random.rand(1, 5)
+    lives = random.randint(1, 5)
     player = 0
     port = 50050
 
