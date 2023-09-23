@@ -167,14 +167,15 @@ class Server(soldier_pb2_grpc.AlertServicer):
         return soldier_pb2.void()
     
     def InitiateAttack(self, request, context):
-        with grpc.insecure_channel("localhost:" + self.connector_port) as channel:
-            stub = connector_pb2_grpc.AlertStub(channel)
+        logger.debug("Initiating attack")
+        with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
+            stub = connector_pb2_grpc.PassAlertStub(channel)
             response = stub.Attack(
                 connector_pb2.MissileStrike(
                     pos=connector_pb2.Coordinate(
-                        x=random.randn(0, self.N - 1), y=random.randn(0, self.N - 1)
+                        x=random.randint(0, self.N - 1), y=random.randint(0, self.N - 1)
                     ),
-                    type=random.randn(1, 4),
+                    type=random.randint(1, 4),
                 )
             )
         return soldier_pb2.void()
@@ -198,7 +199,7 @@ def serve(node_number, lives, player, N, M):
 if __name__ == "__main__":
     # Accept node number as command line argument
     node_number = 1
-    lives = random.randint(1, 5)
+    lives = 3
     player = 0
     port = 50050
 

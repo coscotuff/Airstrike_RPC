@@ -112,6 +112,10 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         if self.num_nodes == len(self.battalion) and self.player == 0:
             logger.debug("Both teams registered")
             logger.debug("Starting game...")
+
+            if self.commander == -70:
+                self.commander = random.sample(self.battalion, 1)[0]
+                logger.debug("Initial commander: " + str(self.commander))
             # Send RPC to commander to Attack
             self.AttackRPCCall()
         return soldier_pb2.void()

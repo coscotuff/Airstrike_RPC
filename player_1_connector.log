@@ -1,5 +1,63 @@
-2023-09-22 16:52:37,327 Server started listening on port 60060...
-2023-09-22 16:52:40,579 Registering node: 4, 2
-2023-09-22 16:52:40,580 All nodes registered
-2023-09-22 16:52:40,580 Register to enemy...
-2023-09-22 16:53:00,590 Registered to enemy
+2023-09-23 17:49:44,019 Server started listening on port 60060...
+2023-09-23 17:49:45,447 Registering enemy: 0
+2023-09-23 17:49:47,103 Registering node: 1, 1
+2023-09-23 17:49:47,104 All nodes registered
+2023-09-23 17:49:47,104 Register to enemy...
+2023-09-23 17:49:47,122 Received strike from enemy: 2, 1; Type: 4
+2023-09-23 17:49:47,122 Executing connector duties...
+2023-09-23 17:49:47,122 Initial commander: 1
+2023-09-23 17:49:47,126 Hits: 1
+2023-09-23 17:49:47,126 Kills: 0
+2023-09-23 17:49:47,127 Points added: 1
+2023-09-23 17:49:47,127 Current commander: 1
+2023-09-23 17:49:47,127 Sending RPC to commander to Attack
+2023-09-23 17:49:47,130 Registered to enemy
+2023-09-23 17:49:47,143 Received strike from enemy: 1, 1; Type: 1
+2023-09-23 17:49:47,143 Executing connector duties...
+2023-09-23 17:49:47,146 Hits: 0
+2023-09-23 17:49:47,147 Kills: 0
+2023-09-23 17:49:47,147 Points added: 0
+2023-09-23 17:49:47,147 Current commander: 1
+2023-09-23 17:49:47,147 Sending RPC to commander to Attack
+2023-09-23 17:49:47,162 Received strike from enemy: 0, 0; Type: 2
+2023-09-23 17:49:47,162 Executing connector duties...
+2023-09-23 17:49:47,164 Hits: 1
+2023-09-23 17:49:47,165 Kills: 0
+2023-09-23 17:49:47,165 Points added: 1
+2023-09-23 17:49:47,165 Current commander: 1
+2023-09-23 17:49:47,165 Sending RPC to commander to Attack
+2023-09-23 17:49:47,180 Received strike from enemy: 4, 3; Type: 2
+2023-09-23 17:49:47,180 Executing connector duties...
+2023-09-23 17:49:47,183 Hits: 0
+2023-09-23 17:49:47,183 Kills: 0
+2023-09-23 17:49:47,183 Points added: 0
+2023-09-23 17:49:47,183 Current commander: 1
+2023-09-23 17:49:47,183 Sending RPC to commander to Attack
+2023-09-23 17:49:47,198 Received strike from enemy: 2, 2; Type: 1
+2023-09-23 17:49:47,198 Executing connector duties...
+2023-09-23 17:49:47,201 Hits: 0
+2023-09-23 17:49:47,201 Kills: 0
+2023-09-23 17:49:47,201 Points added: 0
+2023-09-23 17:49:47,201 Current commander: 1
+2023-09-23 17:49:47,201 Sending RPC to commander to Attack
+2023-09-23 17:49:47,216 Received strike from enemy: 4, 0; Type: 2
+2023-09-23 17:49:47,216 Executing connector duties...
+2023-09-23 17:49:47,219 Hits: 0
+2023-09-23 17:49:47,219 Kills: 0
+2023-09-23 17:49:47,219 Points added: 0
+2023-09-23 17:49:47,219 Current commander: 1
+2023-09-23 17:49:47,219 Sending RPC to commander to Attack
+2023-09-23 17:49:47,234 Received strike from enemy: 4, 1; Type: 4
+2023-09-23 17:49:47,235 Executing connector duties...
+2023-09-23 17:49:47,237 Hits: 0
+2023-09-23 17:49:47,237 Kills: 0
+2023-09-23 17:49:47,237 Points added: 0
+2023-09-23 17:49:47,237 Current commander: 1
+2023-09-23 17:49:47,237 Sending RPC to commander to Attack
+2023-09-23 17:49:47,253 Received strike from enemy: 1, 2; Type: 4
+2023-09-23 17:49:47,253 Executing connector duties...
+2023-09-23 17:49:47,255 Hits: 1
+2023-09-23 17:49:47,256 Kills: 1
+2023-09-23 17:49:47,256 Points added: 4
+2023-09-23 17:49:47,256 Current commander: -1
+2023-09-23 17:49:47,256 Game over
