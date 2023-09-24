@@ -45,6 +45,14 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             + "; Type: "
             + str(request.type)
         )
+
+        if(request.type == -1):
+            threading.Thread(target=self.AttackRPCCall, daemon=True).start()
+            return connector_pb2.Hit(
+                hits=0, kills=0, points=0
+            )
+
+        # Send RPC to commander to Attack
         logger.debug("Executing connector duties...")
 
         if self.commander == -70:
@@ -77,8 +85,8 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             threading.Thread(target=self.TerminateProgram, daemon=True).start()
             return connector_pb2.Hit(hits=-1, kills=-1, points=-1)
 
-        if(self.turns > 0):
-            threading.Thread(target=self.AttackRPCCall, daemon=True).start()
+        
+        threading.Thread(target=self.AttackRPCCall, daemon=True).start()
 
         return connector_pb2.Hit(
             hits=response.hit_count, kills=response.death_count, points=response.points
@@ -86,6 +94,12 @@ class Server(connector_pb2_grpc.PassAlertServicer):
 
     def AttackRPCCall(self):
         # Send RPC to commander to Attack
+        if(self.turns == 0):
+            with grpc.insecure_channel("localhost:" + str(self.opposition_port)) as channel:
+                stub = connector_pb2_grpc.PassAlertStub(channel)
+                response = stub.SendAlert(connector_pb2.MissileStrike(pos=connector_pb2.Coordinate(x=-1, y=-1), type=-1))
+            return
+        
         logger.debug("Sending RPC to commander to Attack")
         with grpc.insecure_channel(
             "localhost:" + str(self.port + self.commander)
@@ -100,7 +114,7 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         logger.debug("Received response from enemy")
 
         # Decrementing turns
-        self.turns -= 1
+        self.turns = max(0, self.turns - 1)
 
         # If hit count is non-zero, increment the number of turns
         if response.hits > 0:
@@ -148,18 +162,20 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         with grpc.insecure_channel("localhost:" + str(self.opposition_port)) as channel:
             stub = connector_pb2_grpc.PassAlertStub(channel)
             response = stub.GetPoints(connector_pb2.Points(points=self.points))
-        logger.debug("Received enemy points")
+        logger.debug("Received enemy points: " + str(response.points))
         return response.points
 
     def GetPoints(self, request, context):
         logger.debug("Received points from enemy: " + str(request.points))
         self.opponent_points = request.points
-        logger.debug("Sending back current points to enemy...")
+    
         if self.turns == 0:
             # Apply multithreading to call TallyResults() function and return the points
+            logger.debug("Sending back current points to enemy: " + str(self.points))
             threading.Thread(target=self.TallyResults, daemon=True).start()
             return connector_pb2.Points(points=self.points)
         else:
+            logger.debug("Sending back current points to enemy: -1")
             return connector_pb2.Points(points=-1)
 
     def RegisterEnemyRPCCall(self):
@@ -209,7 +225,9 @@ class Server(connector_pb2_grpc.PassAlertServicer):
     def TerminateProgram(self):
         # Nuclear launch codes
         MIN_PID = os.getpid()
+        print("KILLING")
         os.system("kill -9 $(pgrep python3 | awk '$1>=" + str(MIN_PID)  + "')")
+        sys.exit(0)
 
 
 def serve(N, M, player):

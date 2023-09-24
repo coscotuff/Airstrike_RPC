@@ -1,89 +1,106 @@
-2023-09-24 17:48:20,818 Soldier speed: 1
-2023-09-24 17:48:20,818 Soldier position: 2, 6
-2023-09-24 17:48:20,818 Connector port: 50050
-2023-09-24 17:48:20,822 Soldier started listening on port 50051.
-2023-09-24 17:48:20,826 Registered self to connector
-2023-09-24 17:48:20,845 Received red zone from commander
-2023-09-24 17:48:20,845 Coordinates received: 2, 2
-2023-09-24 17:48:20,845 Radius received: 4
-2023-09-24 17:48:20,845 Soldier lives: 3
-2023-09-24 17:48:20,845 Soldier position: 2, 6
-2023-09-24 17:48:20,860 Received red zone from commander
-2023-09-24 17:48:20,860 Coordinates received: 5, 0
-2023-09-24 17:48:20,860 Radius received: 1
-2023-09-24 17:48:20,860 Soldier lives: 3
-2023-09-24 17:48:20,860 Soldier position: 2, 6
-2023-09-24 17:48:20,871 Received red zone from commander
-2023-09-24 17:48:20,871 Coordinates received: 4, 2
-2023-09-24 17:48:20,871 Radius received: 3
-2023-09-24 17:48:20,871 Soldier lives: 3
-2023-09-24 17:48:20,871 Soldier position: 2, 6
-2023-09-24 17:48:20,880 Received red zone from commander
-2023-09-24 17:48:20,880 Coordinates received: 2, 9
-2023-09-24 17:48:20,880 Radius received: 3
-2023-09-24 17:48:20,880 Soldier lives: 3
-2023-09-24 17:48:20,880 Soldier position: 2, 6
-2023-09-24 17:48:20,889 Received red zone from commander
-2023-09-24 17:48:20,889 Coordinates received: 1, 1
-2023-09-24 17:48:20,889 Radius received: 2
-2023-09-24 17:48:20,889 Soldier lives: 3
-2023-09-24 17:48:20,889 Soldier position: 2, 6
-2023-09-24 17:48:20,898 Received red zone from commander
-2023-09-24 17:48:20,898 Coordinates received: 3, 9
-2023-09-24 17:48:20,898 Radius received: 2
-2023-09-24 17:48:20,898 Soldier lives: 3
-2023-09-24 17:48:20,898 Soldier position: 2, 6
-2023-09-24 17:48:20,907 Received red zone from commander
-2023-09-24 17:48:20,907 Coordinates received: 5, 3
-2023-09-24 17:48:20,907 Radius received: 1
-2023-09-24 17:48:20,907 Soldier lives: 3
-2023-09-24 17:48:20,907 Soldier position: 2, 6
-2023-09-24 17:48:20,915 Received red zone from commander
-2023-09-24 17:48:20,915 Coordinates received: 7, 0
-2023-09-24 17:48:20,915 Radius received: 4
-2023-09-24 17:48:20,915 Soldier lives: 3
-2023-09-24 17:48:20,915 Soldier position: 2, 6
-2023-09-24 17:48:20,923 Received red zone from commander
-2023-09-24 17:48:20,923 Coordinates received: 1, 6
-2023-09-24 17:48:20,923 Radius received: 4
-2023-09-24 17:48:20,923 Soldier hit
-2023-09-24 17:48:20,923 Soldier lives: 2
-2023-09-24 17:48:20,923 Soldier position: 2, 6
-2023-09-24 17:48:20,931 Received red zone from commander
-2023-09-24 17:48:20,931 Coordinates received: 8, 8
-2023-09-24 17:48:20,931 Radius received: 4
-2023-09-24 17:48:20,931 Soldier lives: 2
-2023-09-24 17:48:20,931 Soldier position: 2, 6
-2023-09-24 17:48:20,937 Received red zone from commander
-2023-09-24 17:48:20,937 Coordinates received: 2, 9
-2023-09-24 17:48:20,937 Radius received: 4
-2023-09-24 17:48:20,938 Soldier hit
-2023-09-24 17:48:20,938 Soldier lives: 1
-2023-09-24 17:48:20,938 Soldier position: 2, 6
-2023-09-24 17:48:20,947 Received red zone from commander
-2023-09-24 17:48:20,947 Coordinates received: 9, 9
-2023-09-24 17:48:20,947 Radius received: 1
-2023-09-24 17:48:20,947 Soldier lives: 1
-2023-09-24 17:48:20,947 Soldier position: 2, 6
-2023-09-24 17:48:20,951 Received red zone from commander
-2023-09-24 17:48:20,951 Coordinates received: 7, 8
-2023-09-24 17:48:20,951 Radius received: 1
-2023-09-24 17:48:20,951 Soldier lives: 1
-2023-09-24 17:48:20,952 Soldier position: 2, 6
-2023-09-24 17:48:20,962 Received red zone from commander
-2023-09-24 17:48:20,962 Coordinates received: 8, 3
-2023-09-24 17:48:20,962 Radius received: 2
-2023-09-24 17:48:20,962 Soldier lives: 1
-2023-09-24 17:48:20,962 Soldier position: 2, 6
-2023-09-24 17:48:20,966 Received red zone from commander
-2023-09-24 17:48:20,966 Coordinates received: 2, 3
-2023-09-24 17:48:20,966 Radius received: 1
-2023-09-24 17:48:20,966 Soldier lives: 1
-2023-09-24 17:48:20,966 Soldier position: 2, 6
-2023-09-24 17:48:20,976 Received red zone from commander
-2023-09-24 17:48:20,976 Coordinates received: 4, 7
-2023-09-24 17:48:20,976 Radius received: 3
-2023-09-24 17:48:20,976 Soldier hit
-2023-09-24 17:48:20,976 Soldier died
-2023-09-24 17:48:20,976 Soldier lives: 0
-2023-09-24 17:48:20,976 Soldier position: 1, 6
+2023-09-25 01:50:42,153 Soldier speed: 2
+2023-09-25 01:50:42,153 Soldier position: 8, 3
+2023-09-25 01:50:42,153 Connector port: 50050
+2023-09-25 01:50:42,161 Soldier started listening on port 50051.
+2023-09-25 01:50:42,165 Registered self to connector
+2023-09-25 01:50:42,210 Received red zone from commander
+2023-09-25 01:50:42,210 Coordinates received: 3, 5
+2023-09-25 01:50:42,210 Radius received: 1
+2023-09-25 01:50:42,210 Soldier lives: 3
+2023-09-25 01:50:42,210 Soldier position: 8, 3
+2023-09-25 01:50:42,236 Received red zone from commander
+2023-09-25 01:50:42,236 Coordinates received: 0, 7
+2023-09-25 01:50:42,236 Radius received: 3
+2023-09-25 01:50:42,236 Soldier lives: 3
+2023-09-25 01:50:42,236 Soldier position: 8, 3
+2023-09-25 01:50:42,253 Received red zone from commander
+2023-09-25 01:50:42,254 Coordinates received: 3, 7
+2023-09-25 01:50:42,254 Radius received: 1
+2023-09-25 01:50:42,254 Soldier lives: 3
+2023-09-25 01:50:42,254 Soldier position: 8, 3
+2023-09-25 01:50:42,269 Received red zone from commander
+2023-09-25 01:50:42,270 Coordinates received: 5, 1
+2023-09-25 01:50:42,270 Radius received: 3
+2023-09-25 01:50:42,270 Soldier lives: 3
+2023-09-25 01:50:42,270 Soldier position: 8, 3
+2023-09-25 01:50:42,285 Received red zone from commander
+2023-09-25 01:50:42,285 Coordinates received: 4, 4
+2023-09-25 01:50:42,285 Radius received: 2
+2023-09-25 01:50:42,285 Soldier lives: 3
+2023-09-25 01:50:42,285 Soldier position: 8, 3
+2023-09-25 01:50:42,302 Received red zone from commander
+2023-09-25 01:50:42,302 Coordinates received: 1, 3
+2023-09-25 01:50:42,302 Radius received: 2
+2023-09-25 01:50:42,302 Soldier lives: 3
+2023-09-25 01:50:42,302 Soldier position: 8, 3
+2023-09-25 01:50:42,319 Received red zone from commander
+2023-09-25 01:50:42,319 Coordinates received: 1, 4
+2023-09-25 01:50:42,319 Radius received: 3
+2023-09-25 01:50:42,319 Soldier lives: 3
+2023-09-25 01:50:42,319 Soldier position: 8, 3
+2023-09-25 01:50:42,334 Received red zone from commander
+2023-09-25 01:50:42,334 Coordinates received: 0, 0
+2023-09-25 01:50:42,334 Radius received: 4
+2023-09-25 01:50:42,334 Soldier lives: 3
+2023-09-25 01:50:42,335 Soldier position: 8, 3
+2023-09-25 01:50:42,350 Received red zone from commander
+2023-09-25 01:50:42,350 Coordinates received: 6, 6
+2023-09-25 01:50:42,350 Radius received: 4
+2023-09-25 01:50:42,350 Soldier hit
+2023-09-25 01:50:42,350 Soldier lives: 2
+2023-09-25 01:50:42,350 Soldier position: 8, 3
+2023-09-25 01:50:42,365 Received red zone from commander
+2023-09-25 01:50:42,365 Coordinates received: 6, 1
+2023-09-25 01:50:42,365 Radius received: 3
+2023-09-25 01:50:42,365 Soldier lives: 2
+2023-09-25 01:50:42,365 Soldier position: 9, 5
+2023-09-25 01:50:42,380 Received red zone from commander
+2023-09-25 01:50:42,380 Coordinates received: 0, 5
+2023-09-25 01:50:42,380 Radius received: 2
+2023-09-25 01:50:42,380 Soldier lives: 2
+2023-09-25 01:50:42,380 Soldier position: 9, 5
+2023-09-25 01:50:42,396 Received red zone from commander
+2023-09-25 01:50:42,396 Coordinates received: 1, 8
+2023-09-25 01:50:42,396 Radius received: 3
+2023-09-25 01:50:42,396 Soldier lives: 2
+2023-09-25 01:50:42,396 Soldier position: 9, 5
+2023-09-25 01:50:42,411 Received red zone from commander
+2023-09-25 01:50:42,411 Coordinates received: 0, 7
+2023-09-25 01:50:42,411 Radius received: 1
+2023-09-25 01:50:42,411 Soldier lives: 2
+2023-09-25 01:50:42,411 Soldier position: 9, 5
+2023-09-25 01:50:42,427 Received red zone from commander
+2023-09-25 01:50:42,427 Coordinates received: 0, 8
+2023-09-25 01:50:42,427 Radius received: 3
+2023-09-25 01:50:42,427 Soldier lives: 2
+2023-09-25 01:50:42,427 Soldier position: 9, 5
+2023-09-25 01:50:42,442 Received red zone from commander
+2023-09-25 01:50:42,442 Coordinates received: 6, 9
+2023-09-25 01:50:42,442 Radius received: 4
+2023-09-25 01:50:42,442 Soldier lives: 2
+2023-09-25 01:50:42,442 Soldier position: 9, 5
+2023-09-25 01:50:42,456 Received red zone from commander
+2023-09-25 01:50:42,456 Coordinates received: 6, 4
+2023-09-25 01:50:42,456 Radius received: 1
+2023-09-25 01:50:42,456 Soldier lives: 2
+2023-09-25 01:50:42,456 Soldier position: 9, 5
+2023-09-25 01:50:42,470 Received red zone from commander
+2023-09-25 01:50:42,471 Coordinates received: 5, 5
+2023-09-25 01:50:42,471 Radius received: 1
+2023-09-25 01:50:42,471 Soldier lives: 2
+2023-09-25 01:50:42,471 Soldier position: 9, 5
+2023-09-25 01:50:42,484 Received red zone from commander
+2023-09-25 01:50:42,484 Coordinates received: 8, 7
+2023-09-25 01:50:42,484 Radius received: 2
+2023-09-25 01:50:42,484 Soldier lives: 2
+2023-09-25 01:50:42,484 Soldier position: 9, 5
+2023-09-25 01:50:42,498 Received red zone from commander
+2023-09-25 01:50:42,498 Coordinates received: 3, 5
+2023-09-25 01:50:42,498 Radius received: 2
+2023-09-25 01:50:42,498 Soldier lives: 2
+2023-09-25 01:50:42,498 Soldier position: 9, 5
+2023-09-25 01:50:42,510 Received red zone from commander
+2023-09-25 01:50:42,510 Coordinates received: 4, 2
+2023-09-25 01:50:42,510 Radius received: 3
+2023-09-25 01:50:42,510 Soldier lives: 2
+2023-09-25 01:50:42,510 Soldier position: 9, 5
