@@ -73,7 +73,9 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             print("Sorry, you lose!")
             return connector_pb2.Hit(hits=-1, kills=-1, points=-1)
 
-        threading.Thread(target=self.AttackRPCCall, daemon=True).start()
+        if(self.turns > 0):
+            threading.Thread(target=self.AttackRPCCall, daemon=True).start()
+            
         return connector_pb2.Hit(
             hits=response.hit_count, kills=response.death_count, points=response.points
         )
@@ -134,7 +136,7 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         logger.debug("Sending points to enemy...")
         with grpc.insecure_channel("localhost:" + str(self.opposition_port)) as channel:
             stub = connector_pb2_grpc.PassAlertStub(channel)
-            response = stub.GetPoints(soldier_pb2.Points(points=self.points))
+            response = stub.GetPoints(connector_pb2.Points(points=self.points))
         logger.debug("Received enemy points")
         return response.points
 
