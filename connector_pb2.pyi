@@ -30,3 +30,15 @@ class Hit(_message.Message):
     kills: int
     points: int
     def __init__(self, hits: _Optional[int] = ..., kills: _Optional[int] = ..., points: _Optional[int] = ...) -> None: ...
+
+class Points(_message.Message):
+    __slots__ = ["points"]
+    POINTS_FIELD_NUMBER: _ClassVar[int]
+    points: int
+    def __init__(self, points: _Optional[int] = ...) -> None: ...
+
+class Timestamp(_message.Message):
+    __slots__ = ["timestamp"]
+    TIMESTAMP_FIELD_NUMBER: _ClassVar[int]
+    timestamp: float
+    def __init__(self, timestamp: _Optional[float] = ...) -> None: ...

@@ -22,10 +22,20 @@ message Hit
     optional int32 points = 3;
 }
 
+message Points
+{
+    optional int32 points = 1;
+}
+
+message Timestamp
+{
+    optional float timestamp = 1;
+}
 service PassAlert
 {
     rpc SendAlert(MissileStrike) returns (Hit) {}
     rpc RegisterNode(Coordinate) returns (soldier.void) {}
-    rpc RegisterEnemy(soldier.void) returns (soldier.void) {}
+    rpc RegisterEnemy(Timestamp) returns (soldier.void) {}
     rpc Attack(MissileStrike) returns (soldier.void) {}
+    rpc GetPoints(Points) returns (Points) {}
 }

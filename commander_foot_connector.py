@@ -7,6 +7,7 @@ import random
 from concurrent import futures
 import sys
 import threading
+import time
 
 import grpc
 import soldier_pb2
@@ -36,8 +37,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
         self.battalion = [i for i in range(1, M + 1)]
 
-        x = threading.Thread(target=self.RegisterNodeRPCCall)
-        x.start()
+        threading.Thread(target=self.RegisterNodeRPCCall).start()
 
     def RegisterNodeRPCCall(self):
         with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
@@ -108,8 +108,6 @@ class Server(soldier_pb2_grpc.AlertServicer):
                     stub = soldier_pb2_grpc.AlertStub(channel)
                     soldier_list = soldier_pb2.Battalion()
                     soldier_list.soldier_ids.extend(self.battalion)
-                    # for i in self.battalion:
-                    #     soldier_list.soldier_ids.append(i)
                     response = stub.PromoteSoldier(soldier_list)
 
         return soldier_pb2.AttackStatus(
@@ -165,7 +163,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
         logger.debug("Soldier list: " + str(request.soldier_ids))
         self.battalion = [i for i in request.soldier_ids]
         return soldier_pb2.void()
-    
+
     def InitiateAttack(self, request, context):
         logger.debug("Initiating attack")
         with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
@@ -180,11 +178,9 @@ class Server(soldier_pb2_grpc.AlertServicer):
             )
         return soldier_pb2.void()
 
+
 def serve(node_number, lives, player, N, M):
-    port = 50050
-    if player == 1:
-        port = 60060
-    port += node_number
+    port = 50050 + player * 10010 + node_number
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     soldier_pb2_grpc.add_AlertServicer_to_server(
         Server(node_number=node_number, lives=lives, player=player, N=N, M=M), server
@@ -203,8 +199,10 @@ if __name__ == "__main__":
     player = 0
     port = 50050
 
+    random.seed(time.time() % 100)
+
     if len(sys.argv) > 1:
-        player = int(sys.argv[1])  # Either A or B
+        player = int(sys.argv[3])  # Either A or B
         if player != 0 and player != 1:
             print("Invalid player number. Please enter 0 for A or 1 for B.")
             sys.exit()
@@ -212,8 +210,8 @@ if __name__ == "__main__":
             print("Player: " + str(player))
             if player == 1:
                 port = 60060
-        N = int(sys.argv[2])
-        M = int(sys.argv[3])
+        N = int(sys.argv[1])
+        M = int(sys.argv[2])
         node_number = int(sys.argv[4])
 
         if node_number < 1 or node_number > M:

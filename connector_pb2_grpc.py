@@ -27,13 +27,18 @@ class PassAlertStub(object):
                 )
         self.RegisterEnemy = channel.unary_unary(
                 '/PassAlert/RegisterEnemy',
-                request_serializer=soldier__pb2.void.SerializeToString,
+                request_serializer=connector__pb2.Timestamp.SerializeToString,
                 response_deserializer=soldier__pb2.void.FromString,
                 )
         self.Attack = channel.unary_unary(
                 '/PassAlert/Attack',
                 request_serializer=connector__pb2.MissileStrike.SerializeToString,
                 response_deserializer=soldier__pb2.void.FromString,
+                )
+        self.GetPoints = channel.unary_unary(
+                '/PassAlert/GetPoints',
+                request_serializer=connector__pb2.Points.SerializeToString,
+                response_deserializer=connector__pb2.Points.FromString,
                 )
 
 
@@ -64,6 +69,12 @@ class PassAlertServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetPoints(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_PassAlertServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -79,13 +90,18 @@ def add_PassAlertServicer_to_server(servicer, server):
             ),
             'RegisterEnemy': grpc.unary_unary_rpc_method_handler(
                     servicer.RegisterEnemy,
-                    request_deserializer=soldier__pb2.void.FromString,
+                    request_deserializer=connector__pb2.Timestamp.FromString,
                     response_serializer=soldier__pb2.void.SerializeToString,
             ),
             'Attack': grpc.unary_unary_rpc_method_handler(
                     servicer.Attack,
                     request_deserializer=connector__pb2.MissileStrike.FromString,
                     response_serializer=soldier__pb2.void.SerializeToString,
+            ),
+            'GetPoints': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPoints,
+                    request_deserializer=connector__pb2.Points.FromString,
+                    response_serializer=connector__pb2.Points.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -143,7 +159,7 @@ class PassAlert(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/PassAlert/RegisterEnemy',
-            soldier__pb2.void.SerializeToString,
+            connector__pb2.Timestamp.SerializeToString,
             soldier__pb2.void.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
@@ -162,5 +178,22 @@ class PassAlert(object):
         return grpc.experimental.unary_unary(request, target, '/PassAlert/Attack',
             connector__pb2.MissileStrike.SerializeToString,
             soldier__pb2.void.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetPoints(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/PassAlert/GetPoints',
+            connector__pb2.Points.SerializeToString,
+            connector__pb2.Points.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

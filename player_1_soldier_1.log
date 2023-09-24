@@ -1,12 +1,5 @@
-2023-09-23 17:49:47,092 Soldier speed: 0
-2023-09-23 17:49:47,092 Soldier position: 1, 1
-2023-09-23 17:49:47,092 Connector port: 60060
-2023-09-23 17:49:47,099 Soldier started listening on port 60061.
-2023-09-23 17:49:47,106 Registered self to connector
-2023-09-23 17:49:47,129 Initiating attack
-2023-09-23 17:49:47,150 Initiating attack
-2023-09-23 17:49:47,167 Initiating attack
-2023-09-23 17:49:47,185 Initiating attack
-2023-09-23 17:49:47,203 Initiating attack
-2023-09-23 17:49:47,222 Initiating attack
-2023-09-23 17:49:47,240 Initiating attack
+2023-09-24 14:01:27,790 Soldier speed: 4
+2023-09-24 14:01:27,791 Soldier position: 9, 0
+2023-09-24 14:01:27,791 Connector port: 60060
+2023-09-24 14:01:27,795 Soldier started listening on port 60061.
+2023-09-24 14:01:27,800 Registered self to connector
