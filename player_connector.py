@@ -8,13 +8,14 @@ import random
 from concurrent import futures
 import threading
 import time
+import sys
 
 import connector_pb2
 import connector_pb2_grpc
 import grpc
 import soldier_pb2
 import soldier_pb2_grpc
-import sys
+
 
 
 class Server(connector_pb2_grpc.PassAlertServicer):
@@ -71,11 +72,14 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             # Game over
             logger.debug("Game over")
             print("Sorry, you lose!")
+            # Initiate exit here (call initiate exit function) using multithreading
+            logger.debug("Exiting...")
+            threading.Thread(target=self.TerminateProgram, daemon=True).start()
             return connector_pb2.Hit(hits=-1, kills=-1, points=-1)
 
         if(self.turns > 0):
             threading.Thread(target=self.AttackRPCCall, daemon=True).start()
-            
+
         return connector_pb2.Hit(
             hits=response.hit_count, kills=response.death_count, points=response.points
         )
@@ -110,6 +114,10 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         if self.turns == 0 or response.points == -1:
             if response.points == -1:
                 print("Congratulations, you win!")
+                # Initiate exit here (call initiate exit function) using multithreading
+                logger.debug("Exiting...")
+                threading.Thread(target=self.TerminateProgram, daemon=True).start()
+
             else:
                 # To compare scores, send score to opponent. If opponent is not yet done, then wait for opponent to send score
                 # Return the appropriate score to the connector (-1 if opponent is not yet done)
@@ -130,7 +138,10 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             print("Sorry, you lose!")
         else:
             print("It's a tie!")
-        return
+        
+        # initiate exit here (call initiate exit function)
+        logger.debug("Exiting...")
+        self.TerminateProgram()
 
     def RegisterEnemyPoints(self):
         logger.debug("Sending points to enemy...")
@@ -194,6 +205,11 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             # Compare the timestamps and intitiate the correct attack
             threading.Thread(target=self.CompareTimestamps, daemon=True).start()
         return soldier_pb2.void()
+    
+    def TerminateProgram(self):
+        # Nuclear launch codes
+        MIN_PID = os.getpid()
+        os.system("kill -9 $(pgrep python3 | awk '$1>=" + str(MIN_PID)  + "')")
 
 
 def serve(N, M, player):
