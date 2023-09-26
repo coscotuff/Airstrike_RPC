@@ -1,7 +1,5 @@
-Create different shell script files to be run on the different devices: 
-    1) For both the player connectors' init,
-    2) For each node init
-
 GUI
 1) Take inputs:
     a) Player Movement
+2) GAME OVER NOTIF TO ALL PLAYERS
+3) Exit() massacre when game over
