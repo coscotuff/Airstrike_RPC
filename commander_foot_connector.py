@@ -170,6 +170,12 @@ class Server(soldier_pb2_grpc.AlertServicer):
         )
 
 
+    # Function to terminate soldier. It is called when the soldier dies.
+    def terminate(self):
+        time.sleep(5)
+        os._exit(0)
+     
+
     # Function used to update the soldier parameters when they are hit by a missile
     def RegisterHit(self):
         self.lives -= 1
@@ -178,6 +184,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
             logger.debug("Soldier died")
             self.update_info()
             self.erase_soldier()
+            threading.Thread(target=self.terminate).start()
+
         logger.debug("Soldier lives: " + str(self.lives))
         logger.debug("Soldier position: " + str(self.x) + ", " + str(self.y))
         return True
