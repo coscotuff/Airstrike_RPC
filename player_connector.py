@@ -224,7 +224,7 @@ class Server(connector_pb2_grpc.PassAlertServicer):
     # Function for sending points to the enemy and getting a response with their points as well.
 
     def RegisterEnemyPoints(self):
-        logger.debug("Sending points to enemy...")
+        logger.debug("Sending points to enemy: " + str(self.points))
         with grpc.insecure_channel("localhost:" + str(self.opposition_port)) as channel:
             stub = connector_pb2_grpc.PassAlertStub(channel)
             response = stub.GetPoints(connector_pb2.Points(points=self.points))

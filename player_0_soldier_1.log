@@ -1,64 +1,35 @@
-2023-09-27 00:18:44,411 Soldier speed: 0
-2023-09-27 00:18:44,411 Soldier position: 4, 4
-2023-09-27 00:18:44,411 Connector port: 50050
-2023-09-27 00:18:44,421 Soldier started listening on port 50051.
-2023-09-27 00:18:44,429 Registered self to connector
-2023-09-27 00:18:45,652 Received red zone from commander
-2023-09-27 00:18:45,652 Coordinates received: 7, 2
-2023-09-27 00:18:45,652 Radius received: 4
-2023-09-27 00:18:45,656 Soldier hit
-2023-09-27 00:18:45,656 Soldier lives: 2
-2023-09-27 00:18:45,656 Soldier position: 4, 4
-2023-09-27 00:18:47,808 Received red zone from commander
-2023-09-27 00:18:47,808 Coordinates received: 5, 0
-2023-09-27 00:18:47,809 Radius received: 3
-2023-09-27 00:18:47,814 Soldier lives: 2
-2023-09-27 00:18:47,814 Soldier position: 4, 4
-2023-09-27 00:18:49,946 Received red zone from commander
-2023-09-27 00:18:49,946 Coordinates received: 9, 9
-2023-09-27 00:18:49,946 Radius received: 2
-2023-09-27 00:18:49,950 Soldier lives: 2
-2023-09-27 00:18:49,950 Soldier position: 4, 4
-2023-09-27 00:18:52,066 Received red zone from commander
-2023-09-27 00:18:52,066 Coordinates received: 6, 3
-2023-09-27 00:18:52,066 Radius received: 2
-2023-09-27 00:18:52,070 Soldier lives: 2
-2023-09-27 00:18:52,070 Soldier position: 4, 4
-2023-09-27 00:18:54,215 Received red zone from commander
-2023-09-27 00:18:54,215 Coordinates received: 3, 9
-2023-09-27 00:18:54,215 Radius received: 3
-2023-09-27 00:18:54,224 Soldier lives: 2
-2023-09-27 00:18:54,224 Soldier position: 4, 4
-2023-09-27 00:18:56,348 Received red zone from commander
-2023-09-27 00:18:56,348 Coordinates received: 8, 9
-2023-09-27 00:18:56,348 Radius received: 1
-2023-09-27 00:18:56,352 Soldier lives: 2
-2023-09-27 00:18:56,352 Soldier position: 4, 4
-2023-09-27 00:18:58,486 Received red zone from commander
-2023-09-27 00:18:58,486 Coordinates received: 9, 9
-2023-09-27 00:18:58,486 Radius received: 4
-2023-09-27 00:18:58,496 Soldier lives: 2
-2023-09-27 00:18:58,496 Soldier position: 4, 4
-2023-09-27 00:19:00,631 Received red zone from commander
-2023-09-27 00:19:00,631 Coordinates received: 6, 8
-2023-09-27 00:19:00,631 Radius received: 3
-2023-09-27 00:19:00,636 Soldier lives: 2
-2023-09-27 00:19:00,636 Soldier position: 4, 4
-2023-09-27 00:19:02,790 Received red zone from commander
-2023-09-27 00:19:02,790 Coordinates received: 7, 6
-2023-09-27 00:19:02,790 Radius received: 4
-2023-09-27 00:19:02,795 Soldier hit
-2023-09-27 00:19:02,795 Soldier lives: 1
-2023-09-27 00:19:02,795 Soldier position: 4, 4
-2023-09-27 00:19:04,955 Received red zone from commander
-2023-09-27 00:19:04,955 Coordinates received: 2, 9
-2023-09-27 00:19:04,955 Radius received: 4
-2023-09-27 00:19:04,959 Soldier lives: 1
-2023-09-27 00:19:04,959 Soldier position: 4, 4
-2023-09-27 00:19:07,089 Received red zone from commander
-2023-09-27 00:19:07,089 Coordinates received: 3, 3
-2023-09-27 00:19:07,089 Radius received: 4
-2023-09-27 00:19:07,100 Soldier hit
-2023-09-27 00:19:07,100 Soldier died
-2023-09-27 00:19:07,104 Soldier lives: 0
-2023-09-27 00:19:07,104 Soldier position: 4, 4
+2023-09-27 00:56:56,707 Soldier speed: 2
+2023-09-27 00:56:56,707 Soldier position: 5, 8
+2023-09-27 00:56:56,707 Connector port: 50050
+2023-09-27 00:56:56,716 Registered self to connector
+2023-09-27 00:56:56,725 Soldier started listening on port 50051.
+2023-09-27 00:56:56,727 Promoting soldier to commander
+2023-09-27 00:56:56,729 Initiating attack
+2023-09-27 00:57:04,185 Received alert: 6, 8; Radius: 2
+2023-09-27 00:57:04,185 Executing commander duties...
+2023-09-27 00:57:04,245 Soldier lives: 3
+2023-09-27 00:57:04,245 Soldier position: 3, 6
+2023-09-27 00:57:04,248 Initiating attack
+2023-09-27 00:57:08,011 Received alert: 2, 5; Radius: 2
+2023-09-27 00:57:08,011 Executing commander duties...
+2023-09-27 00:57:08,071 Soldier lives: 3
+2023-09-27 00:57:08,071 Soldier position: 5, 8
+2023-09-27 00:57:08,074 Initiating attack
+2023-09-27 00:57:11,156 Received alert: 6, 8; Radius: 4
+2023-09-27 00:57:11,156 Executing commander duties...
+2023-09-27 00:57:11,214 Soldier hit
+2023-09-27 00:57:11,214 Soldier lives: 2
+2023-09-27 00:57:11,214 Soldier position: 5, 8
+2023-09-27 00:57:11,216 Initiating attack
+2023-09-27 00:57:13,916 Received alert: 6, 8; Radius: 3
+2023-09-27 00:57:13,916 Executing commander duties...
+2023-09-27 00:57:13,981 Soldier hit
+2023-09-27 00:57:13,981 Soldier lives: 1
+2023-09-27 00:57:13,981 Soldier position: 3, 8
+2023-09-27 00:57:13,983 Initiating attack
+2023-09-27 00:57:17,572 Received alert: 2, 8; Radius: 4
+2023-09-27 00:57:17,572 Executing commander duties...
+2023-09-27 00:57:17,631 Soldier hit
+2023-09-27 00:57:17,631 Soldier died
+2023-09-27 00:57:17,633 Soldier lives: 0
+2023-09-27 00:57:17,633 Soldier position: 3, 8
