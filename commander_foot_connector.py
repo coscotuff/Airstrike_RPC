@@ -10,7 +10,7 @@ import threading
 import time
 import tkinter as tk
 from concurrent import futures
-from tkinter import Canvas
+from tkinter import Canvas, messagebox
 
 import grpc
 
@@ -23,6 +23,9 @@ import soldier_pb2_grpc
 # Class for each soldier object that is initialised
 class Server(soldier_pb2_grpc.AlertServicer):
     def __init__(self, node_number, lives, player, N, M, canvas):
+        # Flag checking if the soldier is the commander
+        self.is_commander = False
+
         # Node number associated with each soldier
         self.node_number = node_number
 
@@ -43,6 +46,10 @@ class Server(soldier_pb2_grpc.AlertServicer):
         self.y = random.randint(0, self.N - 1)
         self.speed = random.randint(0, 4)
 
+        # Initialise attack coordinates
+        self.attack_x = 0
+        self.attack_y = 0
+
         # Port number for the connector, 50050 for player 0, 60060 for player 1
         self.connector_port = 50050 + self.player * 10010
 
@@ -56,14 +63,15 @@ class Server(soldier_pb2_grpc.AlertServicer):
         # Mutli-threaded call to register the newly initialised node with the connector
         threading.Thread(target=self.RegisterNodeRPCCall).start()
 
-
         self.canvas = canvas  # Store the canvas for GUI interaction
 
         # Create a soldier representation on the canvas
         self.soldier_shape = self.canvas.create_rectangle(
-            self.x * GRID_CELL_SIZE, self.y * GRID_CELL_SIZE,
-            (self.x + 1) * GRID_CELL_SIZE, (self.y + 1) * GRID_CELL_SIZE,
-            fill=self.get_player_color(self.player)
+            self.x * GRID_CELL_SIZE,
+            self.y * GRID_CELL_SIZE,
+            (self.x + 1) * GRID_CELL_SIZE,
+            (self.y + 1) * GRID_CELL_SIZE,
+            fill=self.get_player_color(self.player),
         )
 
     # def on_soldier_click(self, event):
@@ -82,35 +90,21 @@ class Server(soldier_pb2_grpc.AlertServicer):
     #         # Move the soldier to the new position
     #         self.move(new_x, new_y, radius)
 
-    def move_soldier(self, new_x, new_y):
-        # Update the soldier's position on the canvas
-        self.canvas.coords(
-            self.soldier_shape,
-            new_x * GRID_CELL_SIZE, new_y * GRID_CELL_SIZE,
-            (new_x + 1) * GRID_CELL_SIZE, (new_y + 1) * GRID_CELL_SIZE
-        )
-
-    def erase_soldier(self):
-        # Remove the soldier from the canvas
-        self.canvas.delete(self.soldier_shape)
-        self.clear_grid()
-        info_label.config(text="Soldier " + str(self.node_number) + " is dead")
-
-    def get_player_color(self, player):
-        # Define colors for different players
-        return "blue" if player == 0 else "green"
 
     # Making an RPC call to the connector to register the node
-
     def RegisterNodeRPCCall(self):
         with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
             stub = connector_pb2_grpc.PassAlertStub(channel)
             stub.RegisterNode(connector_pb2.Coordinate(x=self.x, y=self.y))
             logging.debug("Registered self to connector")
 
-    # RPC access point the connector uses to send the red zone to the commander and get a status update
 
+    # RPC access point the connector uses to send the red zone to the commander and get a status update
     def SendZone(self, request, context):
+        # Set the commander flag to true if it is not already set
+        if self.is_commander == False:
+            self.is_commander = True
+
         logger.debug(
             "Received alert: "
             + str(request.pos.x)
@@ -191,8 +185,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
             current_commander=current_commander,
         )
 
-    # Function used to update the soldier parameters when they are hit by a missile
 
+    # Function used to update the soldier parameters when they are hit by a missile
     def RegisterHit(self):
         self.lives -= 1
         logger.debug("Soldier hit")
@@ -204,28 +198,131 @@ class Server(soldier_pb2_grpc.AlertServicer):
         logger.debug("Soldier position: " + str(self.x) + ", " + str(self.y))
         return True
 
-    
+
+    # Move the box of the soldier to the new position
+    def move_soldier(self, new_x, new_y):
+        # Update the soldier's position on the canvas
+        self.canvas.coords(
+            self.soldier_shape,
+            new_x * GRID_CELL_SIZE,
+            new_y * GRID_CELL_SIZE,
+            (new_x + 1) * GRID_CELL_SIZE,
+            (new_y + 1) * GRID_CELL_SIZE,
+        )
+
+        if self.is_commander:
+            canvas.itemconfig(self.soldier_shape, outline="gold", width=5)
+
+
+    # Function to erase the soldier from the canvas
+    def erase_soldier(self):
+        # Remove the soldier from the canvas
+        self.canvas.delete(self.soldier_shape)
+        self.clear_grid()
+        info_label.config(text="Soldier " + str(self.node_number) + " is dead")
+
+
+    # Function to get the color of the soldier based on the player
+    def get_player_color(self, player):
+        # Define colors for different players
+        return "blue" if player == 0 else "purple"
+
+
+    # Function to update life and position information
     def update_info(self):
         info_label.config(
             text=f"Current Coordinates: ({self.x}, {self.y}) | Lives Left: {self.lives}"
         )
 
+
+    # Function to change the color of a cell
     def change_color(self, x, y, color):
         canvas.itemconfig(grid[y][x], fill=color)
-    
+
+
+    # Function to display a red region on the grid based on center and radius
     def display_red_region(self, center_x, center_y, radius):
         for y in range(GRID_SIZE):
             for x in range(GRID_SIZE):
                 if abs(x - center_x) < radius and abs(y - center_y) < radius:
                     self.change_color(x, y, "red")
 
+
+    # Function to clear the grid
     def clear_grid(self):
         for y in range(self.N):
             for x in range(self.N):
                 self.change_color(x, y, DEFAULT_COLOR)
-    
-    # Default algorithm for the soldier to move out of the red zone if possible, else register a hit
 
+
+    # Function to handle attacks launched by the commander on the click of the button
+    def button_click(self, x, y, attacking_phase_window):
+        # Destroy the attacking phase window
+        attacking_phase_window.destroy()
+
+        # Send the chosen attack coordinates to the connector
+        with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
+            stub = connector_pb2_grpc.PassAlertStub(channel)
+            response = stub.Attack(
+                connector_pb2.MissileStrike(
+                    pos=connector_pb2.Coordinate(
+                        x=x, y=y
+                    ),
+                    type=random.randint(1, 5),
+                )
+            )
+
+
+    # Timeout function to close the attacking phase window for the commander to select the coordinates to attack with random coordinates
+    def close_attacking_phase_window(self, attacking_phase_window):
+        # Destroy the attacking phase window
+        attacking_phase_window.destroy()
+
+        # Send the randomised attack coordinates to the connector
+        with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
+            stub = connector_pb2_grpc.PassAlertStub(channel)
+            response = stub.Attack(
+                connector_pb2.MissileStrike(
+                    pos=connector_pb2.Coordinate(
+                        x=random.randint(0, self.N - 1), y=random.randint(0, self.N - 1)
+                    ),
+                    type=random.randint(1, 5),
+                )
+            )
+
+
+    # Function to open the attacking phase window for the commander to select the coordinates to attack
+    def open_attacking_phase(self, window):
+        # Create a new window for the attacking phase
+        attacking_phase_window = tk.Toplevel(window)
+        attacking_phase_window.title("Attacking Phase")
+
+        # Create a canvas to draw the grid in the attacking phase window
+        attacking_phase_canvas = tk.Canvas(attacking_phase_window, width=N * GRID_CELL_SIZE, height=N * GRID_CELL_SIZE)
+        attacking_phase_canvas.pack()
+
+        # Create a 2D list to store the grid buttons
+        attacking_phase_buttons = []
+
+        # Initialize the grid buttons in the attacking phase window
+        for y in range(GRID_SIZE):
+            row = []
+            for x in range(GRID_SIZE):
+                button = tk.Button(
+                    attacking_phase_canvas,
+                    text=f"({x}, {y})",
+                    command=lambda x=x, y=y: self.button_click(x, y, attacking_phase_window)  # Pass coordinates to button_click function
+                )
+                button.grid(row=y, column=x)
+                row.append(button)
+            attacking_phase_buttons.append(row)
+        
+        # Set a timeout timer for the commander to select the coordinates to attack
+        attacking_phase_window.after(15000, lambda: self.close_attacking_phase_window(attacking_phase_window))
+        
+
+
+    # Default algorithm for the soldier to move out of the red zone if possible, else register a hit
     def move(self, hit_x, hit_y, radius):
         self.clear_grid()
         self.display_red_region(hit_x, hit_y, radius)
@@ -233,9 +330,6 @@ class Server(soldier_pb2_grpc.AlertServicer):
         self.move_soldier(self.x, self.y)
         self.update_info()
 
-        c = 0
-        for i in range(1, 10000000):
-            c += 1
         # Check if the soldier is in the red zone using manhattan distance
         if abs(hit_x - self.x) < radius and abs(hit_y - self.y) < radius:
             # If the soldier is in the red zone, try to move out of it
@@ -262,8 +356,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
         self.update_info()
         return False
 
-    # RPC access point for the commander to send the red zone to the soldier and get a status update
 
+    # RPC access point for the commander to send the red zone to the soldier and get a status update
     def UpdateStatus(self, request, context):
         logger.debug("Received red zone from commander")
         logger.debug(
@@ -275,30 +369,25 @@ class Server(soldier_pb2_grpc.AlertServicer):
             is_sink=(self.lives == 0), is_hit=hit, points=self.points
         )
 
-    # RPC access point for the commander to promote a soldier to a new commander with a new battalion
 
+    # RPC access point for the commander to promote a soldier to a new commander with a new battalion
     def PromoteSoldier(self, request, context):
         logger.debug("Promoting soldier to commander")
         logger.debug("Soldier list: " + str(request.soldier_ids))
         self.battalion = [i for i in request.soldier_ids]
         return soldier_pb2.void()
 
+
     # RPC access point for the commander to initiate an attack on the opposing team by passing the attack to the connector.
     # One change made here is to introduce a type 5 missile. This is so that super soldiers with 4 speed wont always be able to escape.
     # This is introduce the possibility of a game over where all the soldiers die.
-
     def InitiateAttack(self, request, context):
         logger.debug("Initiating attack")
-        with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
-            stub = connector_pb2_grpc.PassAlertStub(channel)
-            response = stub.Attack(
-                connector_pb2.MissileStrike(
-                    pos=connector_pb2.Coordinate(
-                        x=random.randint(0, self.N - 1), y=random.randint(0, self.N - 1)
-                    ),
-                    type=random.randint(1, 5),
-                )
-            )
+
+        # Opens an attacking window for the commander to select the coordinates to attack, will automatically close after some time
+        # and select a random coordinates if the commander does not select any
+        self.open_attacking_phase(window)
+
         return soldier_pb2.void()
 
 
@@ -309,7 +398,10 @@ def serve(node_number, lives, player, N, M, canvas):
     # Initialise the server part of the soldiers
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     soldier_pb2_grpc.add_AlertServicer_to_server(
-        Server(node_number=node_number, lives=lives, player=player, N=N, M=M, canvas=canvas), server
+        Server(
+            node_number=node_number, lives=lives, player=player, N=N, M=M, canvas=canvas
+        ),
+        server,
     )
 
     # Start the server
@@ -363,7 +455,7 @@ if __name__ == "__main__":
     # Create a tkinter window and canvas for GUI
     window = tk.Tk()
     window.title("Soldier Grid")
-    
+
     # Initialize game variables
     GRID_SIZE = N
     GRID_CELL_SIZE = 40  # Adjust this for cell size
@@ -375,11 +467,13 @@ if __name__ == "__main__":
     lives_left = MAX_LIVES
     turns_left = MAX_TURNS
 
-    canvas = Canvas(window, width=GRID_SIZE*GRID_CELL_SIZE, height= GRID_SIZE*GRID_CELL_SIZE)
+    canvas = Canvas(
+        window, width=GRID_SIZE * GRID_CELL_SIZE, height=GRID_SIZE * GRID_CELL_SIZE
+    )
     canvas.pack()
 
     grid = []
-    
+
     for y in range(GRID_SIZE):
         row = []
         for x in range(GRID_SIZE):
@@ -398,6 +492,7 @@ if __name__ == "__main__":
     info_label = tk.Label(window, text="")
     info_label.pack()
 
-    threading.Thread(target= serve, args = (node_number, lives, player, N, M, canvas)).start()
-    window.mainloop()  
-    
+    threading.Thread(
+        target=serve, args=(node_number, lives, player, N, M, canvas)
+    ).start()
+    window.mainloop()

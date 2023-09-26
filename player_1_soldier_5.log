@@ -1,44 +1,10 @@
-2023-09-26 21:41:12,411 Soldier speed: 0
-2023-09-26 21:41:12,411 Soldier position: 5, 5
-2023-09-26 21:41:12,411 Connector port: 60060
-2023-09-26 21:41:12,421 Soldier started listening on port 60065.
-2023-09-26 21:41:12,423 Registered self to connector
-2023-09-26 21:41:12,464 Initiating attack
-2023-09-26 21:41:15,260 Received alert: 5, 6; Radius: 4
-2023-09-26 21:41:15,261 Executing commander duties...
-2023-09-26 21:41:17,886 Soldier hit
-2023-09-26 21:41:17,886 Soldier lives: 2
-2023-09-26 21:41:17,886 Soldier position: 5, 5
-2023-09-26 21:41:17,890 Initiating attack
-2023-09-26 21:41:20,327 Received alert: 7, 1; Radius: 4
-2023-09-26 21:41:20,327 Executing commander duties...
-2023-09-26 21:41:22,041 Soldier lives: 2
-2023-09-26 21:41:22,042 Soldier position: 5, 5
-2023-09-26 21:41:22,044 Initiating attack
-2023-09-26 21:41:23,742 Received alert: 2, 8; Radius: 3
-2023-09-26 21:41:23,742 Executing commander duties...
-2023-09-26 21:41:25,456 Soldier lives: 2
-2023-09-26 21:41:25,456 Soldier position: 5, 5
-2023-09-26 21:41:25,461 Initiating attack
-2023-09-26 21:41:27,239 Received alert: 3, 3; Radius: 2
-2023-09-26 21:41:27,240 Executing commander duties...
-2023-09-26 21:41:29,109 Soldier lives: 2
-2023-09-26 21:41:29,109 Soldier position: 5, 5
-2023-09-26 21:41:29,112 Initiating attack
-2023-09-26 21:41:30,944 Received alert: 1, 7; Radius: 1
-2023-09-26 21:41:30,944 Executing commander duties...
-2023-09-26 21:41:32,712 Soldier lives: 2
-2023-09-26 21:41:32,712 Soldier position: 5, 5
-2023-09-26 21:41:32,716 Initiating attack
-2023-09-26 21:41:34,433 Received alert: 6, 5; Radius: 5
-2023-09-26 21:41:34,433 Executing commander duties...
-2023-09-26 21:41:36,261 Soldier hit
-2023-09-26 21:41:36,261 Soldier lives: 1
-2023-09-26 21:41:36,261 Soldier position: 5, 5
-2023-09-26 21:41:36,266 Initiating attack
-2023-09-26 21:41:38,119 Received alert: 5, 6; Radius: 3
-2023-09-26 21:41:38,119 Executing commander duties...
-2023-09-26 21:41:39,485 Soldier hit
-2023-09-26 21:41:39,485 Soldier died
-2023-09-26 21:41:39,488 Soldier lives: 0
-2023-09-26 21:41:39,488 Soldier position: 5, 5
+2023-09-26 23:33:27,429 Soldier speed: 4
+2023-09-26 23:33:27,430 Soldier position: 2, 8
+2023-09-26 23:33:27,430 Connector port: 60060
+2023-09-26 23:33:27,438 Soldier started listening on port 60065.
+2023-09-26 23:33:27,438 Registered self to connector
+2023-09-26 23:33:30,487 Received alert: 4, 5; Radius: 2
+2023-09-26 23:33:30,487 Executing commander duties...
+2023-09-26 23:33:30,514 Soldier lives: 3
+2023-09-26 23:33:30,514 Soldier position: 2, 8
+2023-09-26 23:33:30,516 Initiating attack
