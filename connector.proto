@@ -42,7 +42,7 @@ message Timestamp
 service PassAlert
 {
     rpc SendAlert(MissileStrike) returns (Hit) {}
-    rpc RegisterNode(Coordinate) returns (soldier.void) {}
+    rpc RegisterNode(soldier.SoldierData) returns (soldier.void) {}
     rpc RegisterEnemy(Timestamp) returns (soldier.void) {}
     rpc Attack(MissileStrike) returns (soldier.void) {}
     rpc GetPoints(Points) returns (Points) {}

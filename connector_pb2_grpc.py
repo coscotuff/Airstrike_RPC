@@ -7,7 +7,8 @@ import soldier_pb2 as soldier__pb2
 
 
 class PassAlertStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """The services to exchange information between the teams such as the missile strikes, the points, the timestamp and the registration of the nodes
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -22,7 +23,7 @@ class PassAlertStub(object):
                 )
         self.RegisterNode = channel.unary_unary(
                 '/PassAlert/RegisterNode',
-                request_serializer=connector__pb2.Coordinate.SerializeToString,
+                request_serializer=soldier__pb2.SoldierData.SerializeToString,
                 response_deserializer=soldier__pb2.void.FromString,
                 )
         self.RegisterEnemy = channel.unary_unary(
@@ -43,7 +44,8 @@ class PassAlertStub(object):
 
 
 class PassAlertServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """The services to exchange information between the teams such as the missile strikes, the points, the timestamp and the registration of the nodes
+    """
 
     def SendAlert(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -85,7 +87,7 @@ def add_PassAlertServicer_to_server(servicer, server):
             ),
             'RegisterNode': grpc.unary_unary_rpc_method_handler(
                     servicer.RegisterNode,
-                    request_deserializer=connector__pb2.Coordinate.FromString,
+                    request_deserializer=soldier__pb2.SoldierData.FromString,
                     response_serializer=soldier__pb2.void.SerializeToString,
             ),
             'RegisterEnemy': grpc.unary_unary_rpc_method_handler(
@@ -111,7 +113,8 @@ def add_PassAlertServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class PassAlert(object):
-    """Missing associated documentation comment in .proto file."""
+    """The services to exchange information between the teams such as the missile strikes, the points, the timestamp and the registration of the nodes
+    """
 
     @staticmethod
     def SendAlert(request,
@@ -142,7 +145,7 @@ class PassAlert(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/PassAlert/RegisterNode',
-            connector__pb2.Coordinate.SerializeToString,
+            soldier__pb2.SoldierData.SerializeToString,
             soldier__pb2.void.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

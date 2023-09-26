@@ -6,7 +6,8 @@ import soldier_pb2 as soldier__pb2
 
 
 class AlertStub(object):
-    """Missing associated documentation comment in .proto file."""
+    """Services to exchange information between the connector and the commander, as well as between the commander and the soldiers for alerts, status updates, promotion, and attacks
+    """
 
     def __init__(self, channel):
         """Constructor.
@@ -37,7 +38,8 @@ class AlertStub(object):
 
 
 class AlertServicer(object):
-    """Missing associated documentation comment in .proto file."""
+    """Services to exchange information between the connector and the commander, as well as between the commander and the soldiers for alerts, status updates, promotion, and attacks
+    """
 
     def SendZone(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -94,7 +96,8 @@ def add_AlertServicer_to_server(servicer, server):
 
  # This class is part of an EXPERIMENTAL API.
 class Alert(object):
-    """Missing associated documentation comment in .proto file."""
+    """Services to exchange information between the connector and the commander, as well as between the commander and the soldiers for alerts, status updates, promotion, and attacks
+    """
 
     @staticmethod
     def SendZone(request,

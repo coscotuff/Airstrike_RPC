@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rsoldier.proto\x12\x07soldier\"6\n\x08Position\x12\x0e\n\x01x\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x0e\n\x01y\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x04\n\x02_xB\x04\n\x02_y\"V\n\x07RedZone\x12#\n\x03pos\x18\x01 \x01(\x0b\x32\x11.soldier.PositionH\x00\x88\x01\x01\x12\x13\n\x06radius\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x06\n\x04_posB\t\n\x07_radius\"\xb4\x01\n\x0c\x41ttackStatus\x12\x18\n\x0b\x64\x65\x61th_count\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x16\n\thit_count\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06points\x18\x03 \x01(\x05H\x02\x88\x01\x01\x12\x1e\n\x11\x63urrent_commander\x18\x04 \x01(\x05H\x03\x88\x01\x01\x42\x0e\n\x0c_death_countB\x0c\n\n_hit_countB\t\n\x07_pointsB\x14\n\x12_current_commander\"q\n\rSoldierStatus\x12\x13\n\x06is_hit\x18\x01 \x01(\x08H\x00\x88\x01\x01\x12\x14\n\x07is_sink\x18\x02 \x01(\x08H\x01\x88\x01\x01\x12\x13\n\x06points\x18\x03 \x01(\x05H\x02\x88\x01\x01\x42\t\n\x07_is_hitB\n\n\x08_is_sinkB\t\n\x07_points\" \n\tBattalion\x12\x13\n\x0bsoldier_ids\x18\x01 \x03(\x05\"\x06\n\x04void2\xe3\x01\n\x05\x41lert\x12\x35\n\x08SendZone\x12\x10.soldier.RedZone\x1a\x15.soldier.AttackStatus\"\x00\x12:\n\x0cUpdateStatus\x12\x10.soldier.RedZone\x1a\x16.soldier.SoldierStatus\"\x00\x12\x35\n\x0ePromoteSoldier\x12\x12.soldier.Battalion\x1a\r.soldier.void\"\x00\x12\x30\n\x0eInitiateAttack\x12\r.soldier.void\x1a\r.soldier.void\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rsoldier.proto\x12\x07soldier\"i\n\x0bSoldierData\x12\x0f\n\x02id\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x17\n\nip_address\x18\x02 \x01(\tH\x01\x88\x01\x01\x12\x11\n\x04port\x18\x03 \x01(\x05H\x02\x88\x01\x01\x42\x05\n\x03_idB\r\n\x0b_ip_addressB\x07\n\x05_port\"6\n\x08Position\x12\x0e\n\x01x\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x0e\n\x01y\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x04\n\x02_xB\x04\n\x02_y\"V\n\x07RedZone\x12#\n\x03pos\x18\x01 \x01(\x0b\x32\x11.soldier.PositionH\x00\x88\x01\x01\x12\x13\n\x06radius\x18\x02 \x01(\x05H\x01\x88\x01\x01\x42\x06\n\x04_posB\t\n\x07_radius\"\xb4\x01\n\x0c\x41ttackStatus\x12\x18\n\x0b\x64\x65\x61th_count\x18\x01 \x01(\x05H\x00\x88\x01\x01\x12\x16\n\thit_count\x18\x02 \x01(\x05H\x01\x88\x01\x01\x12\x13\n\x06points\x18\x03 \x01(\x05H\x02\x88\x01\x01\x12\x1e\n\x11\x63urrent_commander\x18\x04 \x01(\x05H\x03\x88\x01\x01\x42\x0e\n\x0c_death_countB\x0c\n\n_hit_countB\t\n\x07_pointsB\x14\n\x12_current_commander\"q\n\rSoldierStatus\x12\x13\n\x06is_hit\x18\x01 \x01(\x08H\x00\x88\x01\x01\x12\x14\n\x07is_sink\x18\x02 \x01(\x08H\x01\x88\x01\x01\x12\x13\n\x06points\x18\x03 \x01(\x05H\x02\x88\x01\x01\x42\t\n\x07_is_hitB\n\n\x08_is_sinkB\t\n\x07_points\"3\n\tBattalion\x12&\n\x08soldiers\x18\x01 \x03(\x0b\x32\x14.soldier.SoldierData\"\x06\n\x04void2\xe3\x01\n\x05\x41lert\x12\x35\n\x08SendZone\x12\x10.soldier.RedZone\x1a\x15.soldier.AttackStatus\"\x00\x12:\n\x0cUpdateStatus\x12\x10.soldier.RedZone\x1a\x16.soldier.SoldierStatus\"\x00\x12\x35\n\x0ePromoteSoldier\x12\x12.soldier.Battalion\x1a\r.soldier.void\"\x00\x12\x30\n\x0eInitiateAttack\x12\r.soldier.void\x1a\r.soldier.void\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -21,18 +21,20 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'soldier_pb2', _globals)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _globals['_POSITION']._serialized_start=26
-  _globals['_POSITION']._serialized_end=80
-  _globals['_REDZONE']._serialized_start=82
-  _globals['_REDZONE']._serialized_end=168
-  _globals['_ATTACKSTATUS']._serialized_start=171
-  _globals['_ATTACKSTATUS']._serialized_end=351
-  _globals['_SOLDIERSTATUS']._serialized_start=353
-  _globals['_SOLDIERSTATUS']._serialized_end=466
-  _globals['_BATTALION']._serialized_start=468
-  _globals['_BATTALION']._serialized_end=500
-  _globals['_VOID']._serialized_start=502
-  _globals['_VOID']._serialized_end=508
-  _globals['_ALERT']._serialized_start=511
-  _globals['_ALERT']._serialized_end=738
+  _globals['_SOLDIERDATA']._serialized_start=26
+  _globals['_SOLDIERDATA']._serialized_end=131
+  _globals['_POSITION']._serialized_start=133
+  _globals['_POSITION']._serialized_end=187
+  _globals['_REDZONE']._serialized_start=189
+  _globals['_REDZONE']._serialized_end=275
+  _globals['_ATTACKSTATUS']._serialized_start=278
+  _globals['_ATTACKSTATUS']._serialized_end=458
+  _globals['_SOLDIERSTATUS']._serialized_start=460
+  _globals['_SOLDIERSTATUS']._serialized_end=573
+  _globals['_BATTALION']._serialized_start=575
+  _globals['_BATTALION']._serialized_end=626
+  _globals['_VOID']._serialized_start=628
+  _globals['_VOID']._serialized_end=634
+  _globals['_ALERT']._serialized_start=637
+  _globals['_ALERT']._serialized_end=864
 # @@protoc_insertion_point(module_scope)

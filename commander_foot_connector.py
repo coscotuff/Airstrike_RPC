@@ -19,13 +19,27 @@ import connector_pb2_grpc
 import soldier_pb2
 import soldier_pb2_grpc
 
+import socket
+
+def get_self_ip():
+    try:
+        # Create a socket object and connect to a remote host (e.g., Google's DNS server)
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        # Get the local IP address
+        self_ip = s.getsockname()[0]
+        return self_ip
+    except socket.error as e:
+        print(f"Error: {e}")
+        return None
+    finally:
+        s.close()
 
 # Class for each soldier object that is initialised
 class Server(soldier_pb2_grpc.AlertServicer):
-    def __init__(self, node_number, lives, player, N, M, canvas):
+    def __init__(self, node_number, lives, player, N, M, canvas, connector_ip):
         # Flag checking if the soldier is the commander
         self.is_commander = False
-
         # Node number associated with each soldier
         self.node_number = node_number
 
@@ -46,19 +60,20 @@ class Server(soldier_pb2_grpc.AlertServicer):
         self.y = random.randint(0, self.N - 1)
         self.speed = random.randint(0, 4)
 
-        # Initialise attack coordinates
-        self.attack_x = 0
-        self.attack_y = 0
-
+        self.connector_ip = connector_ip
         # Port number for the connector, 50050 for player 0, 60060 for player 1
         self.connector_port = 50050 + self.player * 10010
+
+        # Get my ip address
+        self.ip_address = get_self_ip()
+        self.port_number = self.connector_port + self.node_number
 
         logger.debug("Soldier speed: " + str(self.speed))
         logger.debug("Soldier position: " + str(self.x) + ", " + str(self.y))
         logger.debug("Connector port: " + str(self.connector_port))
 
         # Initialise the battalion with all the soldiers
-        self.battalion = [i for i in range(1, M + 1)]
+        self.battalion = []
 
         # Mutli-threaded call to register the newly initialised node with the connector
         threading.Thread(target=self.RegisterNodeRPCCall).start()
@@ -77,9 +92,9 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
     # Making an RPC call to the connector to register the node
     def RegisterNodeRPCCall(self):
-        with grpc.insecure_channel("localhost:" + str(self.connector_port)) as channel:
+        with grpc.insecure_channel(self.connector_ip+ ":" + str(self.connector_port)) as channel:
             stub = connector_pb2_grpc.PassAlertStub(channel)
-            stub.RegisterNode(connector_pb2.Coordinate(x=self.x, y=self.y))
+            stub.RegisterNode(soldier_pb2.SoldierData(id=self.node_number, ip_address=self.ip_address, port=self.port_number))
             logging.debug("Registered self to connector")
 
 
@@ -110,9 +125,9 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
         # Iterate through all the soldiers in the battalion and alert them using RPC calls, then return their updated status
         for i in self.battalion:
-            if i != self.node_number:
+            if i.id != self.node_number:
                 with grpc.insecure_channel(
-                    "localhost:" + str(port_base) + str(i)
+                    i.ip_address + ":" + str(i.port)
                 ) as channel:
                     stub = soldier_pb2_grpc.AlertStub(channel)
                     response = stub.UpdateStatus(
@@ -141,32 +156,32 @@ class Server(soldier_pb2_grpc.AlertServicer):
                         death_count += 1
                         added_points += self.points
 
-        current_commander = self.node_number
+        current_commander = [i for i in self.battalion if i.id == self.node_number][0]
 
         # If the commander is killed, remove them from the battalion and promote a random soldier to commander
         # Update the current commander to be returned to the connector. This new commander will directly be connected to by the connector
         if self.lives == 0:
-            self.battalion.remove(self.node_number)
+            self.battalion.remove([i for i in self.battalion if i.id == self.node_number][0])
             if len(self.battalion) == 0:
                 # If the battalion is empty, then there is no commander, return -1 (this will end the game)
-                current_commander = -1
+                current_commander = soldier_pb2.SoldierData(id=-1, ip_address="", port=-1)
             else:
                 current_commander = random.sample(self.battalion, 1)[0]
 
                 # The new commander needs to be promoted to commander using RPC calls and be given the current remaining battalion
                 with grpc.insecure_channel(
-                    "localhost:" + str(port_base) + str(current_commander)
+                    current_commander.ip_address + ":" + str(current_commander.port)
                 ) as channel:
                     stub = soldier_pb2_grpc.AlertStub(channel)
                     soldier_list = soldier_pb2.Battalion()
-                    soldier_list.soldier_ids.extend(self.battalion)
+                    soldier_list.soldiers.extend(self.battalion)
                     response = stub.PromoteSoldier(soldier_list)
 
         return soldier_pb2.AttackStatus(
             death_count=death_count,
             hit_count=hit_count,
             points=added_points,
-            current_commander=current_commander,
+            current_commander=current_commander.id,
         )
 
 
@@ -364,9 +379,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
     # RPC access point for the commander to promote a soldier to a new commander with a new battalion
     def PromoteSoldier(self, request, context):
         logger.debug("Promoting soldier to commander")
-        logger.debug("Soldier list: " + str(request.soldier_ids))
-        self.battalion = [i for i in request.soldier_ids]
         self.is_commander = True
+        self.battalion = request.soldiers
         return soldier_pb2.void()
 
 
@@ -383,17 +397,14 @@ class Server(soldier_pb2_grpc.AlertServicer):
         return soldier_pb2.void()
 
 
-def serve(node_number, lives, player, N, M, canvas):
+def serve(node_number, lives, player, N, M, canvas, server_ip):
     # Initialise the appropriate port for the soldier, depending on the player and node number 5005s for player 0, 6006s for player 1
     port = 50050 + player * 10010 + node_number
 
     # Initialise the server part of the soldiers
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     soldier_pb2_grpc.add_AlertServicer_to_server(
-        Server(
-            node_number=node_number, lives=lives, player=player, N=N, M=M, canvas=canvas
-        ),
-        server,
+        Server(node_number=node_number, lives=lives, player=player, N=N, M=M, canvas=canvas, connector_ip = server_ip), server
     )
 
     # Start the server
@@ -410,6 +421,7 @@ if __name__ == "__main__":
     lives = 3
     player = 0
     port = 50050
+    server_ip = "localhost"
 
     # Random seed for the soldier
     random.seed(time.time() % 100)
@@ -433,6 +445,9 @@ if __name__ == "__main__":
         else:
             print("Node number: " + str(node_number))
             port += node_number
+
+        if len(sys.argv) > 5:
+            server_ip = sys.argv[5]
 
     # Initialise the logger
     logging.basicConfig(
@@ -484,7 +499,6 @@ if __name__ == "__main__":
     info_label = tk.Label(window, text="")
     info_label.pack()
 
-    threading.Thread(
-        target=serve, args=(node_number, lives, player, N, M, canvas)
-    ).start()
-    window.mainloop()
+    threading.Thread(target= serve, args = (node_number, lives, player, N, M, canvas, server_ip)).start()
+    window.mainloop()  
+    

@@ -5,6 +5,16 @@ from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Map
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
+class SoldierData(_message.Message):
+    __slots__ = ["id", "ip_address", "port"]
+    ID_FIELD_NUMBER: _ClassVar[int]
+    IP_ADDRESS_FIELD_NUMBER: _ClassVar[int]
+    PORT_FIELD_NUMBER: _ClassVar[int]
+    id: int
+    ip_address: str
+    port: int
+    def __init__(self, id: _Optional[int] = ..., ip_address: _Optional[str] = ..., port: _Optional[int] = ...) -> None: ...
+
 class Position(_message.Message):
     __slots__ = ["x", "y"]
     X_FIELD_NUMBER: _ClassVar[int]
@@ -44,10 +54,10 @@ class SoldierStatus(_message.Message):
     def __init__(self, is_hit: bool = ..., is_sink: bool = ..., points: _Optional[int] = ...) -> None: ...
 
 class Battalion(_message.Message):
-    __slots__ = ["soldier_ids"]
-    SOLDIER_IDS_FIELD_NUMBER: _ClassVar[int]
-    soldier_ids: _containers.RepeatedScalarFieldContainer[int]
-    def __init__(self, soldier_ids: _Optional[_Iterable[int]] = ...) -> None: ...
+    __slots__ = ["soldiers"]
+    SOLDIERS_FIELD_NUMBER: _ClassVar[int]
+    soldiers: _containers.RepeatedCompositeFieldContainer[SoldierData]
+    def __init__(self, soldiers: _Optional[_Iterable[_Union[SoldierData, _Mapping]]] = ...) -> None: ...
 
 class void(_message.Message):
     __slots__ = []

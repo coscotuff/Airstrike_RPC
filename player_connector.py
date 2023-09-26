@@ -21,19 +21,19 @@ import soldier_pb2_grpc
 # As such, it is also a conduit for the enemy object connector to be able to send missile strikes and return the consequences of the same.
 # It also acts as the conduit for the commander to launch a missile at the opposing team.
 
-
 class Server(connector_pb2_grpc.PassAlertServicer):
     def __init__(self, N, M, player):
         # Current commander to send the alert RPC calls to.
-        self.commander = -70
+        self.commander = soldier_pb2.SoldierData(id=-70, ip_address="localhost", port=-1)
 
         # Initialise the initial number of connected nodes to the connector to be 0.
         # This quantity will later be used to ensure that the correct number of nodes have connected.
         self.num_nodes = 0
 
         # Initialise the battalion, grid size, and player number of the team.
-        self.battalion = [i for i in range(1, M + 1)]
+        self.battalion = []
         self.N = N
+        self.M = M
         self.player = player
 
         # Initialise the source and destination ports
@@ -81,13 +81,21 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         logger.debug("Executing connector duties...")
 
         # If this is the first time the connector is executing duties, it has yet to select a commander. So it selects an initial commander.
-        if self.commander == -70:
+        if self.commander.id == -70:
             self.commander = random.sample(self.battalion, 1)[0]
-            logger.debug("Initial commander: " + str(self.commander))
+            logger.debug("Initial commander: " + str(self.commander.id))
+            # Give the first commander the battalion list using PromoteSoldier RPC call
+            with grpc.insecure_channel(
+                self.commander.ip_address + ":" + str(self.commander.port)
+            ) as channel:
+                stub = soldier_pb2_grpc.AlertStub(channel)
+                soldier_list = soldier_pb2.Battalion()
+                soldier_list.soldiers.extend(self.battalion)
+                response = stub.PromoteSoldier(soldier_list)
 
         # RPC call to the commander node alerting it of the missile. This call returns the damage caused by the missile.
         with grpc.insecure_channel(
-            "localhost:" + str(self.port + self.commander)
+            self.commander.ip_address + ":" + str(self.commander.port)
         ) as channel:
             stub = soldier_pb2_grpc.AlertStub(channel)
             response = stub.SendZone(
@@ -103,10 +111,12 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         logger.debug("Current commander: " + str(response.current_commander))
 
         # Keep refreshing current commander after each response in case the commander has changed
-        self.commander = response.current_commander
-        
+        if response.current_commander != -1:
+            self.commander = [x for x in self.battalion if x.id == response.current_commander][0]
+        else:
+            self.commander = soldier_pb2.SoldierData(id=-1, ip_address="localhost", port=-1)
         # All the connector's soldiers are dead. The opposing team wins
-        if self.commander == -1:
+        if self.commander.id == -1:
             # Game over
             logger.debug("Game over")
             print("Sorry, you lose!")
@@ -143,7 +153,7 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         # Send RPC to commander to Attack
         logger.debug("Sending RPC to commander to Attack")
         with grpc.insecure_channel(
-            "localhost:" + str(self.port + self.commander)
+            self.commander.ip_address + ":" + str(self.commander.port)
         ) as channel:
             stub = soldier_pb2_grpc.AlertStub(channel)
             response = stub.InitiateAttack(soldier_pb2.void())
@@ -270,20 +280,32 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             logger.debug("Starting game...")
 
             # Same logic as in SendAlert()
-            if self.commander == -70:
+            if self.commander.id == -70:
                 self.commander = random.sample(self.battalion, 1)[0]
-                logger.debug("Initial commander: " + str(self.commander))
+                logger.debug("Initial commander: " + str(self.commander.id))
+                # Give the first commander the battalion list using PromoteSoldier RPC call
+                with grpc.insecure_channel(
+                    self.commander.ip_address + ":" + str(self.commander.port)
+                ) as channel:
+                    stub = soldier_pb2_grpc.AlertStub(channel)
+                    soldier_list = soldier_pb2.Battalion()
+                    soldier_list.soldiers.extend(self.battalion)
+                    response = stub.PromoteSoldier(soldier_list)
 
             # Send RPC to commander to Attack
+            print("Commander: " + str(self.commander.id) + " IP: " + self.commander.ip_address + " Port: " + str(self.commander.port))
             self.AttackRPCCall()
 
 
     # RPC function called by each node informing connector that it is ready. If all the required nodes have connected, then the enemy is notified about the same.
 
     def RegisterNode(self, request, context):
-        logger.debug("Registering node: " + str(request.x) + ", " + str(request.y))
+        logger.debug("Registering node: " + str(request.id) +" IP:"+ request.ip_address + ":" + str(request.port))
         self.num_nodes += 1
-        if self.num_nodes == len(self.battalion):
+        # Print the IP Address of the node that has connected
+        print("Node " + str(request.id) + " connected from " + request.ip_address + ":" + str(request.port))
+        self.battalion.append(soldier_pb2.SoldierData(id=request.id, ip_address=request.ip_address, port=request.port))
+        if self.num_nodes == M:
             logger.debug("All nodes registered")
             threading.Thread(target=self.RegisterEnemyRPCCall, daemon=True).start()
         print("Returning void after RegisterNode")
