@@ -5,17 +5,17 @@
 import logging
 import os
 import random
-from concurrent import futures
+import sys
 import threading
 import time
-import sys
+from concurrent import futures
+
+import grpc
 
 import connector_pb2
 import connector_pb2_grpc
-import grpc
 import soldier_pb2
 import soldier_pb2_grpc
-
 
 # This is the class defining the connector. It acts as a missile detection system and alerts the commander when the enemy launches a strike.
 # As such, it is also a conduit for the enemy object connector to be able to send missile strikes and return the consequences of the same.
