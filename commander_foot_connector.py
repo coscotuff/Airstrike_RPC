@@ -74,22 +74,6 @@ class Server(soldier_pb2_grpc.AlertServicer):
             fill=self.get_player_color(self.player),
         )
 
-    # def on_soldier_click(self, event):
-    #     # Calculate the grid coordinates (cell) where the user clicked
-    #     new_x = event.x // GRID_SIZE
-    #     new_y = event.y // GRID_SIZE
-
-    #     # Check if the clicked cell is within the blast radius
-    #     radius = 3  # Adjust the blast radius as needed
-    #     if (
-    #         abs(new_x - self.x) <= radius
-    #         and abs(new_y - self.y) <= radius
-    #         and 0 <= new_x < self.N
-    #         and 0 <= new_y < self.N
-    #     ):
-    #         # Move the soldier to the new position
-    #         self.move(new_x, new_y, radius)
-
 
     # Making an RPC call to the connector to register the node
     def RegisterNodeRPCCall(self):
@@ -318,9 +302,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
             attacking_phase_buttons.append(row)
         
         # Set a timeout timer for the commander to select the coordinates to attack
-        attacking_phase_window.after(15000, lambda: self.close_attacking_phase_window(attacking_phase_window))
+        attacking_phase_window.after(1000, lambda: self.close_attacking_phase_window(attacking_phase_window))
         
-
 
     # Default algorithm for the soldier to move out of the red zone if possible, else register a hit
     def move(self, hit_x, hit_y, radius):
@@ -375,6 +358,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
         logger.debug("Promoting soldier to commander")
         logger.debug("Soldier list: " + str(request.soldier_ids))
         self.battalion = [i for i in request.soldier_ids]
+        self.is_commander = True
         return soldier_pb2.void()
 
 

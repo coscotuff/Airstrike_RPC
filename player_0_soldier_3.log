@@ -1,12 +1,34 @@
-2023-09-26 23:33:27,376 Soldier speed: 2
-2023-09-26 23:33:27,377 Soldier position: 8, 6
-2023-09-26 23:33:27,377 Connector port: 50050
-2023-09-26 23:33:27,391 Soldier started listening on port 50053.
-2023-09-26 23:33:27,402 Registered self to connector
-2023-09-26 23:33:27,448 Initiating attack
-2023-09-26 23:33:36,322 Received alert: 9, 3; Radius: 5
-2023-09-26 23:33:36,322 Executing commander duties...
-2023-09-26 23:33:36,347 Soldier hit
-2023-09-26 23:33:36,347 Soldier lives: 2
-2023-09-26 23:33:36,347 Soldier position: 8, 6
-2023-09-26 23:33:36,363 Initiating attack
+2023-09-26 23:50:58,866 Soldier speed: 0
+2023-09-26 23:50:58,866 Soldier position: 6, 5
+2023-09-26 23:50:58,866 Connector port: 50050
+2023-09-26 23:50:58,877 Soldier started listening on port 50053.
+2023-09-26 23:50:58,885 Registered self to connector
+2023-09-26 23:51:00,263 Received red zone from commander
+2023-09-26 23:51:00,264 Coordinates received: 2, 4
+2023-09-26 23:51:00,264 Radius received: 4
+2023-09-26 23:51:00,266 Soldier lives: 3
+2023-09-26 23:51:00,266 Soldier position: 6, 5
+2023-09-26 23:51:02,456 Received red zone from commander
+2023-09-26 23:51:02,456 Coordinates received: 5, 5
+2023-09-26 23:51:02,456 Radius received: 4
+2023-09-26 23:51:02,462 Soldier hit
+2023-09-26 23:51:02,462 Soldier lives: 2
+2023-09-26 23:51:02,462 Soldier position: 6, 5
+2023-09-26 23:51:04,658 Received red zone from commander
+2023-09-26 23:51:04,659 Coordinates received: 1, 6
+2023-09-26 23:51:04,659 Radius received: 3
+2023-09-26 23:51:04,661 Soldier lives: 2
+2023-09-26 23:51:04,662 Soldier position: 6, 5
+2023-09-26 23:51:06,809 Received red zone from commander
+2023-09-26 23:51:06,809 Coordinates received: 7, 9
+2023-09-26 23:51:06,809 Radius received: 5
+2023-09-26 23:51:06,816 Soldier hit
+2023-09-26 23:51:06,816 Soldier lives: 1
+2023-09-26 23:51:06,816 Soldier position: 6, 5
+2023-09-26 23:51:09,033 Received red zone from commander
+2023-09-26 23:51:09,033 Coordinates received: 5, 4
+2023-09-26 23:51:09,033 Radius received: 3
+2023-09-26 23:51:09,036 Soldier hit
+2023-09-26 23:51:09,036 Soldier died
+2023-09-26 23:51:09,038 Soldier lives: 0
+2023-09-26 23:51:09,038 Soldier position: 6, 5
