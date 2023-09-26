@@ -3,17 +3,22 @@
 
 syntax = "proto3";
 package soldier;
+
+// To store the coordinates of the missile strike
 message Position
 {
     optional int32 x = 1;
     optional int32 y = 2;
 }
+
+// To store information about the missile strike
 message RedZone
 {
     optional Position pos = 1;
     optional int32 radius = 2;
 }
 
+// To store information about the consequences of the missile strike on the enemy
 message AttackStatus
 {
     optional int32 death_count = 1;
@@ -22,6 +27,7 @@ message AttackStatus
     optional int32 current_commander = 4;
 }
 
+// To store information of the effect of the missile strike on a soldier
 message SoldierStatus
 {
     optional bool is_hit = 1;
@@ -29,13 +35,17 @@ message SoldierStatus
     optional int32 points = 3;
 }
 
+// To store information about the presently alive battalion while transferring over commander duties
 message Battalion
 {
     repeated int32 soldier_ids = 1;
 }
 
+// Void message for when nothing actually needs to be returned
 message void {}
 
+
+// Services to exchange information between the connector and the commander, as well as between the commander and the soldiers for alerts, status updates, promotion, and attacks
 service Alert
 {
     rpc SendZone(RedZone) returns (AttackStatus) {}

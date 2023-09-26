@@ -1,1 +1,3 @@
-Would need to handle PORT NUMBER assignment logic
+Create different shell script files to be run on the different devices: 
+    1) For both the player connectors' init,
+    2) For each node init

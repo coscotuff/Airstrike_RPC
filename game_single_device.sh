@@ -1,3 +1,5 @@
+# Description: This is a shell script to run the game on the same machine. N and m are hyperparameters.
+
 N=10
 M=5
 a=1

@@ -4,17 +4,21 @@
 syntax = "proto3";
 import "soldier.proto";
 
+// To store the coordinates of the missile strike
 message Coordinate
 {
     optional int32 x = 1;
     optional int32 y = 2;
 }
+
+// To store information about the missile strike
 message MissileStrike
 {
     optional Coordinate pos = 1;
     optional int32 type = 2;
 }
 
+// To store information about the consequences of the missile strike on the enemy
 message Hit
 {
     optional int32 hits = 1;
@@ -22,15 +26,19 @@ message Hit
     optional int32 points = 3;
 }
 
+// To exchange the points each team has between each other
 message Points
 {
     optional int32 points = 1;
 }
 
+// To exchange the timestamp between the teams and decide which team attacks first
 message Timestamp
 {
     optional float timestamp = 1;
 }
+
+// The services to exchange information between the teams such as the missile strikes, the points, the timestamp and the registration of the nodes
 service PassAlert
 {
     rpc SendAlert(MissileStrike) returns (Hit) {}
