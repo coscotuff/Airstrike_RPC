@@ -1,5 +1,4 @@
 GUI
 1) Take inputs:
     a) Player Movement
-2) GAME OVER NOTIF TO ALL PLAYERS
-3) Exit() massacre when game over
+2) Exit() massacre when game over

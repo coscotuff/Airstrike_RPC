@@ -17,13 +17,16 @@ import connector_pb2_grpc
 import soldier_pb2
 import soldier_pb2_grpc
 
+
 # This is the class defining the connector. It acts as a missile detection system and alerts the commander when the enemy launches a strike.
 # As such, it is also a conduit for the enemy object connector to be able to send missile strikes and return the consequences of the same.
 # It also acts as the conduit for the commander to launch a missile at the opposing team.
 class Server(connector_pb2_grpc.PassAlertServicer):
     def __init__(self, N, M, player):
         # Current commander to send the alert RPC calls to.
-        self.commander = soldier_pb2.SoldierData(id=-70, ip_address="localhost", port=-1)
+        self.commander = soldier_pb2.SoldierData(
+            id=-70, ip_address="localhost", port=-1
+        )
 
         # Initialise the initial number of connected nodes to the connector to be 0.
         # This quantity will later be used to ensure that the correct number of nodes have connected.
@@ -55,12 +58,13 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         self.my_timestamp = -1
         self.opponent_timestamp = -1
 
+        # Initial IP Address (used to send game result)
+        self.initial_ip_address = "localhost"
 
     # This is the main function that the enemy connector calls via an RPC as a form of an attack.
     # This function also doubles as the alerting defense system that only the commander has access to.
     # It will send an alert to the commander via an RPC call.
     def SendAlert(self, request, context):
-        
         # Request type of -1 indicates that the opposing team is done with all of its moves. It means that, no actual
         # missile has been launched. This is used to call the Attack function via multithreading in response to uphold the turn by turn protocol being followed.
         if request.type == -1:
@@ -82,6 +86,8 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         if self.commander.id == -70:
             self.commander = random.sample(self.battalion, 1)[0]
             logger.debug("Initial commander: " + str(self.commander.id))
+            self.initial_ip_address = self.commander.ip_address
+
             # Give the first commander the battalion list using PromoteSoldier RPC call
             with grpc.insecure_channel(
                 self.commander.ip_address + ":" + str(self.commander.port)
@@ -110,17 +116,23 @@ class Server(connector_pb2_grpc.PassAlertServicer):
 
         # Keep refreshing current commander after each response in case the commander has changed
         if response.current_commander != -1:
-            self.commander = [x for x in self.battalion if x.id == response.current_commander][0]
+            self.commander = [
+                x for x in self.battalion if x.id == response.current_commander
+            ][0]
         else:
-            self.commander = soldier_pb2.SoldierData(id=-1, ip_address="localhost", port=-1)
+            self.commander = soldier_pb2.SoldierData(
+                id=-1, ip_address="localhost", port=-1
+            )
         # All the connector's soldiers are dead. The opposing team wins
         if self.commander.id == -1:
             # Game over
             logger.debug("Game over")
 
             # Initiate exit here (call initiate RelayResults function) using multithreading
-            threading.Thread(target=self.RelayResults, args=(True, False), daemon=True).start()
-            
+            threading.Thread(
+                target=self.RelayResults, args=(True, False), daemon=True
+            ).start()
+
             return connector_pb2.Hit(hits=-1, kills=-1, points=-1)
 
         # Call an attacking rpc call to the commander in response to the attack (enforcing the turn by turn protocol)
@@ -130,10 +142,8 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             hits=response.hit_count, kills=response.death_count, points=response.points
         )
 
-
     # Attacking RPC call asking commander to launch missile. This is called in response to the enemy launching a missile.
     def AttackRPCCall(self):
-        
         # If you have run of turns and therefore missiles to launch, simply send dummy coordinates to opposing team's connector with type -1.
         if self.turns == 0:
             with grpc.insecure_channel(
@@ -154,7 +164,6 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         ) as channel:
             stub = soldier_pb2_grpc.AlertStub(channel)
             response = stub.InitiateAttack(soldier_pb2.void())
-
 
     # RPC function called by commander to send the missile to the opposing team.
     def Attack(self, request, context):
@@ -192,9 +201,11 @@ class Server(connector_pb2_grpc.PassAlertServicer):
                 if self.opponent_points != -1:
                     self.RelayResults(False, False)
 
-        if(response.points >= 0): self.points += response.points
-        return connector_pb2.Hit(hits=response.hits, kills=response.kills, points=response.points)
-    
+        if response.points >= 0:
+            self.points += response.points
+        return connector_pb2.Hit(
+            hits=response.hits, kills=response.kills, points=response.points
+        )
 
     # Function tallying scores and deciding who won.
     def RelayResults(self, is_predecided, is_winner):
@@ -213,12 +224,12 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         elif self.points > self.opponent_points:
             print("Congratulations, you win!")
             logger.debug("Congratulations, you win!")
-            result = 1 # 1 means that the player won
+            result = 1  # 1 means that the player won
 
         elif self.points < self.opponent_points:
             print("Sorry, you lose!")
             logger.debug("Sorry, you lose!")
-            result = -1 # -1 means that the player lost
+            result = -1  # -1 means that the player lost
 
         else:
             print("It's a tie!")
@@ -226,6 +237,11 @@ class Server(connector_pb2_grpc.PassAlertServicer):
 
         # Make RPC call here to inform commander of the result
         logger.debug("Sending result to commander: " + str(result))
+        
+        if self.commander.port == -1:
+            self.commander.port = 50050 + self.player * 10011
+            self.commander.ip_address = self.initial_ip_address
+        
         with grpc.insecure_channel(
             self.commander.ip_address + ":" + str(self.commander.port)
         ) as channel:
@@ -237,7 +253,6 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         threading.Thread(target=self.TerminateProgram, daemon=True).start()
         return result
 
-
     # Function for sending points to the enemy and getting a response with their points as well.
     def RegisterEnemyPoints(self):
         logger.debug("Sending points to enemy: " + str(self.points))
@@ -246,7 +261,6 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             response = stub.GetPoints(connector_pb2.Points(points=self.points))
         logger.debug("Received enemy points: " + str(response.points))
         return response.points
-    
 
     # RPC function for receiving points from the enemy once they are out of turns, and returning own points as well. Returns -1 if the turns are not over.
     # Return the current points if all the turns are over. Also calls Tally Results function to immediately calculate if it won.
@@ -257,12 +271,13 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         if self.turns == 0:
             # Apply multithreading to call RelayResults() function and return the points
             logger.debug("Sending back current points to enemy: " + str(self.points))
-            threading.Thread(target=self.RelayResults, args=(False, False), daemon=True).start() #123456789
+            threading.Thread(
+                target=self.RelayResults, args=(False, False), daemon=True
+            ).start()  # 123456789
             return connector_pb2.Points(points=self.points)
         else:
             logger.debug("Sending back current points to enemy: -1")
             return connector_pb2.Points(points=-1)
-
 
     # Once all the nodes of the connector have connected, this function is called. It sends to the enemy a message via an RPC call
     # that it is ready to start along with the current timestamp. Timestamp is used for the turn-by-turn protocol being enforced
@@ -281,7 +296,6 @@ class Server(connector_pb2_grpc.PassAlertServicer):
                 connector_pb2.Timestamp(timestamp=self.my_timestamp)
             )
         logger.debug("Registered to enemy")
-
 
     # Function called by the RegisterEnemy RPC function if the connector is ready as well. It compares the timestamps of the two teams and decides who will go first.
     def CompareTimestamps(self):
@@ -306,34 +320,58 @@ class Server(connector_pb2_grpc.PassAlertServicer):
                     response = stub.PromoteSoldier(soldier_list)
 
             # Send RPC to commander to Attack
-            print("Commander: " + str(self.commander.id) + " IP: " + self.commander.ip_address + " Port: " + str(self.commander.port))
+            print(
+                "Commander: "
+                + str(self.commander.id)
+                + " IP: "
+                + self.commander.ip_address
+                + " Port: "
+                + str(self.commander.port)
+            )
             self.AttackRPCCall()
-
 
     # RPC function called by each node informing connector that it is ready. If all the required nodes have connected, then the enemy is notified about the same.
     def RegisterNode(self, request, context):
-        logger.debug("Registering node: " + str(request.id) +" IP:"+ request.ip_address + ":" + str(request.port))
+        logger.debug(
+            "Registering node: "
+            + str(request.id)
+            + " IP:"
+            + request.ip_address
+            + ":"
+            + str(request.port)
+        )
         self.num_nodes += 1
+
         # Print the IP Address of the node that has connected
-        print("Node " + str(request.id) + " connected from " + request.ip_address + ":" + str(request.port))
-        self.battalion.append(soldier_pb2.SoldierData(id=request.id, ip_address=request.ip_address, port=request.port))
+        print(
+            "Node "
+            + str(request.id)
+            + " connected from "
+            + request.ip_address
+            + ":"
+            + str(request.port)
+        )
+
+        self.battalion.append(
+            soldier_pb2.SoldierData(
+                id=request.id, ip_address=request.ip_address, port=request.port
+            )
+        )
         if self.num_nodes == M:
             logger.debug("All nodes registered")
             threading.Thread(target=self.RegisterEnemyRPCCall, daemon=True).start()
         print("Returning void after RegisterNode")
         return soldier_pb2.void()
 
-
     # RPC function called by enemy to notify and register its timestamp. If the connector is also ready, then trigger the CompareTimestamps method and start the process.
     def RegisterEnemy(self, request, context):
         logger.debug("Registering enemy: " + str(1 - self.player))
         self.opponent_timestamp = request.timestamp
-        
+
         if self.my_timestamp != -1:
             # Compare the timestamps and intitiate the correct attack
             threading.Thread(target=self.CompareTimestamps, daemon=True).start()
         return soldier_pb2.void()
-
 
     # Nuclear launch codes to terminate all the programs initialised by the bash shell script
     def TerminateProgram(self):
@@ -346,14 +384,13 @@ class Server(connector_pb2_grpc.PassAlertServicer):
 
 
 def serve(N, M, player):
-    
     # Initialising the connector server
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     connector_pb2_grpc.add_PassAlertServicer_to_server(
         Server(N=N, M=M, player=player), server
     )
     port = 50050 + player * 10010  # 50050 for player 0, 60060 for player 1
-    
+
     # Starting the server
     server.add_insecure_port("[::]:" + str(port))
     server.start()

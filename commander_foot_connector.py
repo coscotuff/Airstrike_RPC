@@ -96,9 +96,10 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
     def SendResult(self, request, context):
         logger.debug("Received result: " + str(request.result))
-        threading.Thread(target=self.display_result, args=(window, request.result)).start()
+        threading.Thread(
+            target=self.display_result, args=(window, request.result)
+        ).start()
         return soldier_pb2.void()
-
 
     # Making an RPC call to the connector to register the node
 
@@ -205,10 +206,14 @@ class Server(soldier_pb2_grpc.AlertServicer):
             current_commander=current_commander.id,
         )
 
-    # Function to terminate soldier. It is called when the soldier dies.
-    def terminate(self):
-        time.sleep(5)
-        os._exit(0)
+    # Function to terminate everyone. It is called when the soldier dies.
+    def TacticalNuclearStrike(self, box):
+        # Destroy the message box
+        box.destroy()
+
+        # Kill all the processes with python3
+        os.system("kill -9 $(pgrep python3 | awk '$1>=" + str(1000) + "')")
+        sys.exit(0)
 
     # Function used to update the soldier parameters when they are hit by a missile
     def RegisterHit(self):
@@ -275,6 +280,9 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
     # Function to create a pop-up window telling commander about the attack
     def display_attack_status(self, window, response):
+        if(response.points == -1):
+            return
+        
         message_dialog = tk.Toplevel(window)
         message_dialog.title("Missile Damage")
         message_label = tk.Label(
@@ -283,9 +291,10 @@ class Server(soldier_pb2_grpc.AlertServicer):
         )
         message_label.pack()
 
-        # Close the message dialog after 1 second
-        message_dialog.after(1000, message_dialog.destroy)
+        # Close the message dialog after 2 seconds
+        message_dialog.after(2000, message_dialog.destroy)
 
+    # Function to create a pop-up window telling commander about the result of the game
     def display_result(self, window, result):
         if result == -1:
             result = "Sorry, You Lost!"
@@ -299,7 +308,9 @@ class Server(soldier_pb2_grpc.AlertServicer):
         message_label = tk.Label(message_dialog, text=result)
         message_label.pack()
         close_button = tk.Button(
-            message_dialog, text="Close", command=message_dialog.destroy
+            message_dialog,
+            text="Close",
+            command=lambda x=message_dialog: self.TacticalNuclearStrike(x),
         )
         close_button.pack()
 
@@ -385,7 +396,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
         # Set a timeout timer for the commander to select the coordinates to attack
         attacking_phase_window.after(
-            1000,
+            10000,
             lambda: self.close_attacking_phase_window(attacking_phase_window, window),
         )
 
