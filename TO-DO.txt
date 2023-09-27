@@ -1,4 +1,3 @@
-GUI
 1) Take inputs:
     a) Player Movement
-2) Exit() massacre when game over
+
