@@ -48,6 +48,12 @@ message Battalion
     repeated SoldierData soldiers = 1;
 }
 
+// To store the result of the war
+message WarResult
+{
+    optional int32 result = 1;
+}
+
 // Void message for when nothing actually needs to be returned
 message void {}
 
@@ -59,4 +65,5 @@ service Alert
     rpc UpdateStatus(RedZone) returns (SoldierStatus) {}
     rpc PromoteSoldier(Battalion) returns (void) {}
     rpc InitiateAttack(void) returns (void) {}
+    rpc SendResult(WarResult) returns (void) {}
 }

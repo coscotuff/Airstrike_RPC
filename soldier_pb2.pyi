@@ -59,6 +59,12 @@ class Battalion(_message.Message):
     soldiers: _containers.RepeatedCompositeFieldContainer[SoldierData]
     def __init__(self, soldiers: _Optional[_Iterable[_Union[SoldierData, _Mapping]]] = ...) -> None: ...
 
+class WarResult(_message.Message):
+    __slots__ = ["result"]
+    RESULT_FIELD_NUMBER: _ClassVar[int]
+    result: int
+    def __init__(self, result: _Optional[int] = ...) -> None: ...
+
 class void(_message.Message):
     __slots__ = []
     def __init__(self) -> None: ...

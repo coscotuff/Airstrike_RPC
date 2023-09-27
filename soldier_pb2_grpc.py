@@ -35,6 +35,11 @@ class AlertStub(object):
                 request_serializer=soldier__pb2.void.SerializeToString,
                 response_deserializer=soldier__pb2.void.FromString,
                 )
+        self.SendResult = channel.unary_unary(
+                '/soldier.Alert/SendResult',
+                request_serializer=soldier__pb2.WarResult.SerializeToString,
+                response_deserializer=soldier__pb2.void.FromString,
+                )
 
 
 class AlertServicer(object):
@@ -65,6 +70,12 @@ class AlertServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SendResult(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_AlertServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -86,6 +97,11 @@ def add_AlertServicer_to_server(servicer, server):
             'InitiateAttack': grpc.unary_unary_rpc_method_handler(
                     servicer.InitiateAttack,
                     request_deserializer=soldier__pb2.void.FromString,
+                    response_serializer=soldier__pb2.void.SerializeToString,
+            ),
+            'SendResult': grpc.unary_unary_rpc_method_handler(
+                    servicer.SendResult,
+                    request_deserializer=soldier__pb2.WarResult.FromString,
                     response_serializer=soldier__pb2.void.SerializeToString,
             ),
     }
@@ -163,6 +179,23 @@ class Alert(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/soldier.Alert/InitiateAttack',
             soldier__pb2.void.SerializeToString,
+            soldier__pb2.void.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SendResult(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/soldier.Alert/SendResult',
+            soldier__pb2.WarResult.SerializeToString,
             soldier__pb2.void.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

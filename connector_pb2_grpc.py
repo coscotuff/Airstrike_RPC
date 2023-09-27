@@ -34,7 +34,7 @@ class PassAlertStub(object):
         self.Attack = channel.unary_unary(
                 '/PassAlert/Attack',
                 request_serializer=connector__pb2.MissileStrike.SerializeToString,
-                response_deserializer=soldier__pb2.void.FromString,
+                response_deserializer=connector__pb2.Hit.FromString,
                 )
         self.GetPoints = channel.unary_unary(
                 '/PassAlert/GetPoints',
@@ -98,7 +98,7 @@ def add_PassAlertServicer_to_server(servicer, server):
             'Attack': grpc.unary_unary_rpc_method_handler(
                     servicer.Attack,
                     request_deserializer=connector__pb2.MissileStrike.FromString,
-                    response_serializer=soldier__pb2.void.SerializeToString,
+                    response_serializer=connector__pb2.Hit.SerializeToString,
             ),
             'GetPoints': grpc.unary_unary_rpc_method_handler(
                     servicer.GetPoints,
@@ -180,7 +180,7 @@ class PassAlert(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/PassAlert/Attack',
             connector__pb2.MissileStrike.SerializeToString,
-            soldier__pb2.void.FromString,
+            connector__pb2.Hit.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
