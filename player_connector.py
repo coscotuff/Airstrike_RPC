@@ -237,11 +237,11 @@ class Server(connector_pb2_grpc.PassAlertServicer):
 
         # Make RPC call here to inform commander of the result
         logger.debug("Sending result to commander: " + str(result))
-        
+
         if self.commander.port == -1:
             self.commander.port = 50050 + self.player * 10011
             self.commander.ip_address = self.initial_ip_address
-        
+
         with grpc.insecure_channel(
             self.commander.ip_address + ":" + str(self.commander.port)
         ) as channel:
@@ -310,6 +310,8 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             if self.commander.id == -70:
                 self.commander = random.sample(self.battalion, 1)[0]
                 logger.debug("Initial commander: " + str(self.commander.id))
+                self.initial_ip_address = self.commander.ip_address
+
                 # Give the first commander the battalion list using PromoteSoldier RPC call
                 with grpc.insecure_channel(
                     self.commander.ip_address + ":" + str(self.commander.port)
