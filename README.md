@@ -5,10 +5,10 @@ This repository contains the codebase for a streamlined and high-performance rem
 
 ## Running Instructions
 _Note:_
-_1) The operating systems of the machines on which the files are to be run must be Linux based._
+_1) The operating systems of the machines on which the files are to be run must be Linux-based._
 _2) Ensure that all the required software and libraries are installed on your system. For more information on which libraries and software are needed, kindly go through technical design documentation._
 
-First raise the privillege of the corrsponding shell script file that is to be run using chmod +x filename
+First, raise the privilege of the corresponding shell script file that is to be run using chmod +x filename
 
 1) If you wish to run the single device version of the game, where the server and players (both teams) are on a single device, change your present working directory to that of where this file exists and run:
 ```
@@ -16,12 +16,12 @@ sudo chmod +x game_single_device.sh
 ./game_single_device.sh
 ```
 
-2) If you wish to run the two device version of the game, where the server is on one machine and the players (both teams) are on another machine, then:
-   - Find out the ip address (ipv4) of the machine running the server using a command like ```ip a```. Set the shell script variable ```IP``` in the soldier .sh file to be that IP address.
-   - On the machine that is running the server, change your present working directory to that of where this file exists and run:
+2) If you wish to run the two-device version of the game where the server is on one machine and the players (both teams) are on another machine, then:
+   - Find out the IP address (ipv4) of the machine running the server using a command like ```ip a```. Set the shell script variable ```IP``` in the soldier .sh file to be that IP address.
+   - On the machine that is running the server, change your present working directory to that where this file exists and run:
 ```
-sudo chmod +x game_two_devices_server.sh
-./game_two_devices_server.sh
+sudo chmod +x game_multi_devices_server.sh
+./game_multi_devices_server.sh
 ```
   - On the machine that is running the players, change your present working directory to that of where this file exists and run:
 ```
