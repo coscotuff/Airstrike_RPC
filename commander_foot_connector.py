@@ -11,8 +11,7 @@ import threading
 import time
 import tkinter as tk
 from concurrent import futures
-from tkinter import Canvas, messagebox
-import tkinter.simpledialog
+from tkinter import Canvas
 
 import grpc
 
