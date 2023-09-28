@@ -404,7 +404,8 @@ if __name__ == "__main__":
     player = 0
 
     # Set random seed
-    random.seed(time.time() % 100)
+    # random.seed(time.time() % 100)
+    random.seed(42)
 
     if len(sys.argv) > 1:
         N = int(sys.argv[1])

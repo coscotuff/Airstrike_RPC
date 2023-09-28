@@ -61,8 +61,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
         # Initiliase soldier position and speed
         self.x = random.randint(0, self.N - 1)
         self.y = random.randint(0, self.N - 1)
-        # self.speed = random.randint(0, 4)
-        self.speed = 1
+        self.speed = random.randint(0, 4)
+        # self.speed = 1
 
         self.connector_ip = connector_ip
 
@@ -583,7 +583,8 @@ if __name__ == "__main__":
     server_ip = "localhost"
 
     # Random seed for the soldier
-    random.seed(time.time() % 100)
+    # random.seed(time.time() % 100)
+    random.seed(42)
 
     if len(sys.argv) > 1:
         player = int(sys.argv[3])  # Either A or B

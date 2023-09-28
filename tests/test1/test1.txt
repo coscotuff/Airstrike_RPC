@@ -1,0 +1,41 @@
+Run:
+./game_single_device_small.sh
+
+Now select the following player inputs:
+Player 0 starts:
+Attack on player 1: (2, 2)
+Player 1 response:
+Soldier 1: (0, 0)
+Soldier 2: (0, 0)
+
+Attack on player 0: (2, 3)
+Player 0 response:
+Soldier 1: (0, 0)
+Soldier 2: (0, 0)
+
+Attack on player 1: (0, 0)
+Player 1 response:
+Soldier 1: (0, 0)
+Soldier 2: (0, 0)
+
+Attack on player 0: (0, 0)
+Player 0 response:
+Soldier 1: (0, 0)
+Soldier 2: (0, 0)
+
+Attack on player 1: (0, 0)
+Player 1 response:
+Soldier 1: (0, 0)
+Soldier 2: (0, 0)
+
+Attack on player 0: (0, 0)
+Player 0 response:
+Soldier 1: (0, 0)
+Soldier 2: (0, 0)
+
+Attack on player 1: (0, 0)
+Player 1 response:
+Soldier 1: (0, 0)
+Soldier 2: (0, 0)
+
+Player 0 wins

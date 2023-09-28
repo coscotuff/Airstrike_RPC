@@ -1,24 +1,4 @@
-2023-09-28 18:58:40,492 Soldier speed: 0
-2023-09-28 18:58:40,492 Soldier position: 5, 5
-2023-09-28 18:58:40,492 Connector port: 50050
-2023-09-28 18:58:40,505 Registered self to connector
-2023-09-28 18:58:40,510 Soldier started listening on port 50053.
-2023-09-28 18:59:02,690 Coordinates received: 5, 2
-2023-09-28 18:59:02,691 Radius received: 5
-2023-09-28 18:59:02,691 Received red zone from commander at 1
-2023-09-28 18:59:02,712 Soldier hit
-2023-09-28 18:59:02,712 Soldier lives: 2
-2023-09-28 18:59:02,712 Soldier position: 5, 5
-2023-09-28 18:59:23,872 Coordinates received: 3, 4
-2023-09-28 18:59:23,872 Radius received: 3
-2023-09-28 18:59:23,872 Received red zone from commander at 2
-2023-09-28 18:59:23,896 Soldier hit
-2023-09-28 18:59:23,896 Soldier lives: 1
-2023-09-28 18:59:23,896 Soldier position: 5, 5
-2023-09-28 18:59:40,436 Coordinates received: 3, 3
-2023-09-28 18:59:40,436 Radius received: 4
-2023-09-28 18:59:40,436 Received red zone from commander at 3
-2023-09-28 18:59:40,445 Soldier hit
-2023-09-28 18:59:40,445 Soldier died
-2023-09-28 18:59:40,451 Soldier lives: 0
-2023-09-28 18:59:40,451 Soldier position: 5, 5
+2023-09-28 21:31:25,399 Soldier speed: 2
+2023-09-28 21:31:25,399 Soldier position: 1, 0
+2023-09-28 21:31:25,399 Connector port: 50050
+2023-09-28 21:31:25,426 Soldier started listening on port 50053.
