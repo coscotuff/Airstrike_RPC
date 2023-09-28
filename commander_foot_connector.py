@@ -450,7 +450,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
                 row.append(button)
             moving_phase_buttons.append(row)
 
-        # Set a timeout timer for the commander to select the coordinates to attack
+        # Set a timeout timer for the player to move
         moving_phase_window.after(
             10000,
             lambda: self.close_moving_phase_window(moving_phase_window, window),
@@ -583,8 +583,8 @@ if __name__ == "__main__":
     server_ip = "localhost"
 
     # Random seed for the soldier
-    # random.seed(time.time() % 100)
-    random.seed(42)
+    random.seed(time.time() % 100)
+    # random.seed(42)
 
     if len(sys.argv) > 1:
         player = int(sys.argv[3])  # Either A or B
@@ -627,12 +627,8 @@ if __name__ == "__main__":
     GRID_SIZE = N
     GRID_CELL_SIZE = 40  # Adjust this for cell size
     DEFAULT_COLOR = "white"
-    MAX_LIVES = 5
-    MAX_TURNS = 10
 
     current_x, current_y = 0, 0
-    lives_left = MAX_LIVES
-    turns_left = MAX_TURNS
 
     canvas = Canvas(
         window, width=GRID_SIZE * GRID_CELL_SIZE, height=GRID_SIZE * GRID_CELL_SIZE

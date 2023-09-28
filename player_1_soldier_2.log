@@ -1,25 +1,18 @@
-2023-09-28 21:42:36,900 Soldier speed: 2
-2023-09-28 21:42:36,900 Soldier position: 0, 0
-2023-09-28 21:42:36,900 Connector port: 60060
-2023-09-28 21:42:36,911 Registered self to connector
-2023-09-28 21:42:36,916 Soldier started listening on port 60062.
-2023-09-28 21:42:48,420 Coordinates received: 1, 1
-2023-09-28 21:42:48,421 Radius received: 2
-2023-09-28 21:42:48,421 Received red zone from commander at 1
-2023-09-28 21:42:50,433 Soldier hit
-2023-09-28 21:42:50,433 Soldier lives: 2
-2023-09-28 21:42:50,433 Soldier position: 2, 0
-2023-09-28 21:42:59,314 Coordinates received: 2, 1
-2023-09-28 21:42:59,315 Radius received: 2
-2023-09-28 21:42:59,315 Received red zone from commander at 2
-2023-09-28 21:43:00,094 Soldier hit
-2023-09-28 21:43:00,094 Soldier lives: 1
-2023-09-28 21:43:00,094 Soldier position: 1, 1
-2023-09-28 21:43:07,425 Coordinates received: 2, 2
-2023-09-28 21:43:07,425 Radius received: 2
-2023-09-28 21:43:07,425 Received red zone from commander at 3
-2023-09-28 21:43:09,126 Soldier hit
-2023-09-28 21:43:09,126 Soldier died
-2023-09-28 21:43:09,131 Soldier lives: 0
-2023-09-28 21:43:09,132 Soldier position: 3, 2
-2023-09-28 21:43:09,137 Received result: -1
+2023-09-28 22:02:27,033 Soldier speed: 2
+2023-09-28 22:02:27,033 Soldier position: 0, 0
+2023-09-28 22:02:27,033 Connector port: 60060
+2023-09-28 22:02:27,043 Registered self to connector
+2023-09-28 22:02:27,044 Soldier started listening on port 60062.
+2023-09-28 22:02:46,812 Coordinates received: 0, 0
+2023-09-28 22:02:46,812 Radius received: 2
+2023-09-28 22:02:46,812 Received red zone from commander at 1
+2023-09-28 22:02:47,340 Soldier hit
+2023-09-28 22:02:47,340 Soldier lives: 2
+2023-09-28 22:02:47,340 Soldier position: 0, 0
+2023-09-28 22:02:49,040 Coordinates received: 0, 0
+2023-09-28 22:02:49,041 Radius received: 2
+2023-09-28 22:02:49,041 Received red zone from commander at 2
+2023-09-28 22:02:49,371 Soldier hit
+2023-09-28 22:02:49,371 Soldier lives: 1
+2023-09-28 22:02:49,371 Soldier position: 0, 0
+2023-09-28 22:02:50,488 Received result: 1

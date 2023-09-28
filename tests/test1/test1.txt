@@ -3,39 +3,29 @@ Run:
 
 Now select the following player inputs:
 Player 0 starts:
+Attack on player 1: (1, 1)
+Player 1 response:
+Soldier 1: (2, 2)
+Soldier 2: (2, 0)
+
+Attack on player 0: (0, 3)
+Player 0 response:
+Soldier 1: (2, 1)
+Soldier 2: (0, 2)
+
+Attack on player 1: (2, 1)  
+Player 1 response:
+Soldier 1: (2, 1)
+Soldier 2: (1, 1)
+
+Attack on player 0: (2, 2)
+Player 0 response:
+Soldier 1: (3, 2)
+Soldier 2: (1, 1)
+
 Attack on player 1: (2, 2)
 Player 1 response:
-Soldier 1: (0, 0)
-Soldier 2: (0, 0)
-
-Attack on player 0: (2, 3)
-Player 0 response:
-Soldier 1: (0, 0)
-Soldier 2: (0, 0)
-
-Attack on player 1: (0, 0)
-Player 1 response:
-Soldier 1: (0, 0)
-Soldier 2: (0, 0)
-
-Attack on player 0: (0, 0)
-Player 0 response:
-Soldier 1: (0, 0)
-Soldier 2: (0, 0)
-
-Attack on player 1: (0, 0)
-Player 1 response:
-Soldier 1: (0, 0)
-Soldier 2: (0, 0)
-
-Attack on player 0: (0, 0)
-Player 0 response:
-Soldier 1: (0, 0)
-Soldier 2: (0, 0)
-
-Attack on player 1: (0, 0)
-Player 1 response:
-Soldier 1: (0, 0)
-Soldier 2: (0, 0)
+Soldier 1: (2, 2)
+Soldier 2: (3, 2)
 
 Player 0 wins

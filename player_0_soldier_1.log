@@ -1,17 +1,25 @@
-2023-09-28 21:42:36,890 Soldier speed: 2
-2023-09-28 21:42:36,890 Soldier position: 0, 0
-2023-09-28 21:42:36,890 Connector port: 50050
-2023-09-28 21:42:36,899 Soldier started listening on port 50051.
-2023-09-28 21:42:36,904 Registered self to connector
-2023-09-28 21:42:54,774 Coordinates received: 0, 3
-2023-09-28 21:42:54,774 Radius received: 2
-2023-09-28 21:42:54,774 Received red zone from commander at 1
-2023-09-28 21:42:55,465 Soldier lives: 3
-2023-09-28 21:42:55,465 Soldier position: 2, 1
-2023-09-28 21:43:02,923 Coordinates received: 2, 2
-2023-09-28 21:43:02,923 Radius received: 2
-2023-09-28 21:43:02,923 Received red zone from commander at 2
-2023-09-28 21:43:03,864 Soldier hit
-2023-09-28 21:43:03,864 Soldier lives: 2
-2023-09-28 21:43:03,864 Soldier position: 3, 2
-2023-09-28 21:43:09,138 Received result: 1
+2023-09-28 22:02:27,040 Soldier speed: 2
+2023-09-28 22:02:27,040 Soldier position: 0, 0
+2023-09-28 22:02:27,040 Connector port: 50050
+2023-09-28 22:02:27,053 Registered self to connector
+2023-09-28 22:02:27,072 Soldier started listening on port 50051.
+2023-09-28 22:02:43,367 Coordinates received: 1, 1
+2023-09-28 22:02:43,368 Radius received: 2
+2023-09-28 22:02:43,368 Received red zone from commander at 1
+2023-09-28 22:02:43,897 Soldier hit
+2023-09-28 22:02:43,897 Soldier lives: 2
+2023-09-28 22:02:43,897 Soldier position: 0, 0
+2023-09-28 22:02:48,102 Coordinates received: 0, 0
+2023-09-28 22:02:48,102 Radius received: 1
+2023-09-28 22:02:48,102 Received red zone from commander at 2
+2023-09-28 22:02:48,403 Soldier hit
+2023-09-28 22:02:48,404 Soldier lives: 1
+2023-09-28 22:02:48,412 Soldier position: 0, 0
+2023-09-28 22:02:50,175 Coordinates received: 0, 0
+2023-09-28 22:02:50,175 Radius received: 5
+2023-09-28 22:02:50,176 Received red zone from commander at 3
+2023-09-28 22:02:50,478 Soldier hit
+2023-09-28 22:02:50,478 Soldier died
+2023-09-28 22:02:50,480 Soldier lives: 0
+2023-09-28 22:02:50,480 Soldier position: 0, 0
+2023-09-28 22:02:50,487 Received result: -1

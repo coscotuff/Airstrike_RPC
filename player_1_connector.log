@@ -1,34 +1,31 @@
-2023-09-28 21:42:35,311 Server started listening on port 60060...
-2023-09-28 21:42:36,890 Registering node: 1 IP:172.17.74.74:60061
-2023-09-28 21:42:36,909 Registering enemy: 0
-2023-09-28 21:42:36,910 Registering node: 2 IP:172.17.74.74:60062
-2023-09-28 21:42:36,910 All nodes registered
-2023-09-28 21:42:36,910 Register to enemy...
-2023-09-28 21:42:36,920 Registered to enemy
-2023-09-28 21:42:44,409 Received strike from enemy: 1, 1; Type: 2
-2023-09-28 21:42:44,409 Executing connector duties...
-2023-09-28 21:42:44,410 Initial commander: 1
-2023-09-28 21:42:50,434 Hits: 2
-2023-09-28 21:42:50,434 Kills: 0
-2023-09-28 21:42:50,435 Points added: 2
-2023-09-28 21:42:50,435 Current commander: 1
-2023-09-28 21:42:50,435 Sending RPC to commander to Attack
-2023-09-28 21:42:55,472 Received response from enemy
-2023-09-28 21:42:58,338 Received strike from enemy: 2, 1; Type: 2
-2023-09-28 21:42:58,339 Executing connector duties...
-2023-09-28 21:43:00,096 Hits: 2
-2023-09-28 21:43:00,096 Kills: 0
-2023-09-28 21:43:00,096 Points added: 2
-2023-09-28 21:43:00,096 Current commander: 1
-2023-09-28 21:43:00,097 Sending RPC to commander to Attack
-2023-09-28 21:43:03,867 Received response from enemy
-2023-09-28 21:43:06,506 Received strike from enemy: 2, 2; Type: 2
-2023-09-28 21:43:06,506 Executing connector duties...
-2023-09-28 21:43:09,133 Hits: 2
-2023-09-28 21:43:09,133 Kills: 2
-2023-09-28 21:43:09,133 Points added: 8
-2023-09-28 21:43:09,133 Current commander: -1
-2023-09-28 21:43:09,133 Game over
-2023-09-28 21:43:09,133 Sorry, you lose!
-2023-09-28 21:43:09,134 Sending result to battalion: -1
-2023-09-28 21:43:09,138 Exiting...
+2023-09-28 22:02:25,476 Server started listening on port 60060...
+2023-09-28 22:02:27,031 Registering node: 1 IP:172.17.74.74:60061
+2023-09-28 22:02:27,042 Registering node: 2 IP:172.17.74.74:60062
+2023-09-28 22:02:27,042 All nodes registered
+2023-09-28 22:02:27,043 Register to enemy...
+2023-09-28 22:02:27,054 Registered to enemy
+2023-09-28 22:02:27,061 Registering enemy: 0
+2023-09-28 22:02:27,061 Both teams registered
+2023-09-28 22:02:27,061 Starting game...
+2023-09-28 22:02:27,061 Initial commander: 1
+2023-09-28 22:02:27,063 Sending RPC to commander to Attack
+2023-09-28 22:02:43,901 Received response from enemy
+2023-09-28 22:02:46,448 Received strike from enemy: 0, 0; Type: 2
+2023-09-28 22:02:46,448 Executing connector duties...
+2023-09-28 22:02:47,341 Hits: 2
+2023-09-28 22:02:47,341 Kills: 0
+2023-09-28 22:02:47,341 Points added: 2
+2023-09-28 22:02:47,342 Current commander: 1
+2023-09-28 22:02:47,342 Sending RPC to commander to Attack
+2023-09-28 22:02:48,415 Received response from enemy
+2023-09-28 22:02:48,707 Received strike from enemy: 0, 0; Type: 2
+2023-09-28 22:02:48,707 Executing connector duties...
+2023-09-28 22:02:49,373 Hits: 2
+2023-09-28 22:02:49,373 Kills: 0
+2023-09-28 22:02:49,373 Points added: 2
+2023-09-28 22:02:49,373 Current commander: 1
+2023-09-28 22:02:49,374 Sending RPC to commander to Attack
+2023-09-28 22:02:50,483 Received response from enemy
+2023-09-28 22:02:50,484 Congratulations, you win!
+2023-09-28 22:02:50,484 Sending result to battalion: 1
+2023-09-28 22:02:50,489 Exiting...
