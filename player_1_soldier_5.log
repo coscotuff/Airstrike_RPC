@@ -1,5 +1,36 @@
-2023-09-28 13:02:59,278 Soldier speed: 1
-2023-09-28 13:02:59,278 Soldier position: 1, 9
-2023-09-28 13:02:59,278 Connector port: 60060
-2023-09-28 13:02:59,291 Soldier started listening on port 60065.
-2023-09-28 13:02:59,294 Registered self to connector
+2023-09-28 18:58:40,509 Soldier speed: 3
+2023-09-28 18:58:40,509 Soldier position: 4, 5
+2023-09-28 18:58:40,509 Connector port: 60060
+2023-09-28 18:58:40,521 Registered self to connector
+2023-09-28 18:58:40,522 Soldier started listening on port 60065.
+2023-09-28 18:58:42,040 Promoting soldier to commander
+2023-09-28 18:58:42,042 Received alert: 3, 5; Radius: 5
+2023-09-28 18:58:42,042 Executing commander duties...
+2023-09-28 18:58:57,786 Received red zone from commander at 1
+2023-09-28 18:58:58,822 Soldier hit
+2023-09-28 18:58:58,822 Soldier lives: 2
+2023-09-28 18:58:58,822 Soldier position: 6, 6
+2023-09-28 18:58:58,825 Initiating attack
+2023-09-28 18:59:04,572 Received alert: 4, 3; Radius: 3
+2023-09-28 18:59:04,572 Executing commander duties...
+2023-09-28 18:59:17,487 Received red zone from commander at 2
+2023-09-28 18:59:18,372 Soldier lives: 2
+2023-09-28 18:59:18,372 Soldier position: 6, 7
+2023-09-28 18:59:18,377 Initiating attack
+2023-09-28 18:59:25,521 Received alert: 3, 2; Radius: 5
+2023-09-28 18:59:25,521 Executing commander duties...
+2023-09-28 18:59:37,828 Initiating attack
+2023-09-28 18:59:41,245 Received alert: 3, 4; Radius: 1
+2023-09-28 18:59:41,245 Executing commander duties...
+2023-09-28 18:59:43,302 Received red zone from commander at 3
+2023-09-28 18:59:44,023 Soldier lives: 2
+2023-09-28 18:59:44,024 Soldier position: 5, 7
+2023-09-28 18:59:44,029 Initiating attack
+2023-09-28 18:59:47,629 Received alert: 4, 2; Radius: 1
+2023-09-28 18:59:47,629 Executing commander duties...
+2023-09-28 19:00:01,815 Received red zone from commander at 4
+2023-09-28 19:00:02,497 Soldier lives: 2
+2023-09-28 19:00:02,497 Soldier position: 3, 6
+2023-09-28 19:00:02,502 Initiating attack
+2023-09-28 19:00:07,036 Received alert: 5, 3; Radius: 3
+2023-09-28 19:00:07,037 Executing commander duties...

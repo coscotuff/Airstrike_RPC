@@ -62,9 +62,12 @@ class Server(soldier_pb2_grpc.AlertServicer):
         # Initiliase soldier position and speed
         self.x = random.randint(0, self.N - 1)
         self.y = random.randint(0, self.N - 1)
-        self.speed = random.randint(1, 4)
+        # self.speed = random.randint(0, 4)
+        self.speed = 1
 
         self.connector_ip = connector_ip
+
+        self.Time = 0
         # Port number for the connector, 50050 for player 0, 60060 for player 1
         self.connector_port = 50050 + self.player * 10010
 
@@ -178,7 +181,13 @@ class Server(soldier_pb2_grpc.AlertServicer):
                         death_count += 1
                         added_points += self.points
 
-        current_commander = [i for i in self.battalion if i.id == self.node_number][0]
+        try:
+            current_commander = [i for i in self.battalion if i.id == self.node_number][0]
+        except:
+            logger.debug("No commander")
+            logger.debug("Self node number: " + str(self.node_number))
+            logger.debug("Battalion: " + str(self.battalion))
+            current_commander = [i for i in self.battalion if i.id == self.node_number][0]
 
         # If the commander is killed, remove them from the battalion and promote a random soldier to commander
         # Update the current commander to be returned to the connector. This new commander will directly be connected to by the connector
@@ -262,7 +271,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
     # Function to update life and position information
     def update_info(self):
         info_label.config(
-            text=f"Current Coordinates: ({self.x}, {self.y}) | Lives Left: {self.lives}"
+            text=f"Current Coordinates: ({self.x}, {self.y}) | Lives Left: {self.lives} | Time: {self.Time}"
         )
 
     # Function to change the color of a cell
@@ -403,40 +412,6 @@ class Server(soldier_pb2_grpc.AlertServicer):
             10000,
             lambda: self.close_attacking_phase_window(attacking_phase_window, window),
         )
-    
-    # class movement_dialogue_box(tkinter.simpledialog.Dialog):
-    #     def __init__(self, parent, x, y, speed, N):
-    #         self.x = x
-    #         self.y = y
-    #         self.speed = speed
-    #         self.N = N
-    #         super().__init__(parent)
-
-    #     def button_box(self):
-    #         box = tk.Frame(self)
-    #         movement_buttons = []
-    #         for y in range(max(0, self.y - self.speed), min(self.N - 1, self.y + self.speed + 1)):
-    #             row = []
-    #             for x in range(max(0, self.x - self.speed), min(self.N - 1, self.x + self.speed + 1)):
-    #                 button = tk.Button(
-    #                     box,
-    #                     text=f"({x}, {y})",
-    #                     # Get the chosen coordinate
-    #                     command=lambda x=x, y=y: self.motion_button_click(x, y, box),
-    #                 )
-    #                 button.grid(row=y, column=x)
-    #                 row.append(button)
-    #             movement_buttons.append(row)
-    #         box.pack()
-
-    #     def motion_button_click(self, x, y, box):
-    #         self.x = x
-    #         self.y = y
-    #         box.destroy()
-
-    #     def body(self, master):
-    #         self.button_box()
-    #         return None
         
     def movement_dialogue_box(self, window):
         # Create a new window for the moving phase
@@ -445,13 +420,12 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
         # Create a canvas to draw the grid in the moving phase window
         moving_phase_canvas = tk.Canvas(
-            moving_phase_window, width= (2*self.speed + 1) * GRID_CELL_SIZE, height=(2*self.speed + 1) * GRID_CELL_SIZE
+            moving_phase_window, width= N * GRID_CELL_SIZE, height= N * GRID_CELL_SIZE
         )
         moving_phase_canvas.pack()
 
         # Create a 2D list to store the grid buttons
-        movinging_phase_buttons = []
-
+        moving_phase_buttons = []
         # Initialize the grid buttons in the moving phase window
         for y in range(max(0, self.y - self.speed), min(N, self.y + self.speed + 1)):
             row = []
@@ -467,10 +441,11 @@ class Server(soldier_pb2_grpc.AlertServicer):
                     ),
                     bg=colour,
                     fg=text_colour,
+                    state=tk.NORMAL,
                 )
                 button.grid(row=y, column=x)
                 row.append(button)
-            movinging_phase_buttons.append(row)
+            moving_phase_buttons.append(row)
 
         # Set a timeout timer for the commander to select the coordinates to attack
         moving_phase_window.after(
@@ -486,11 +461,14 @@ class Server(soldier_pb2_grpc.AlertServicer):
     
     def close_moving_phase_window(self, moving_phase_window, window):
         moving_phase_window.destroy()
+        logger.debug("Soldier " + str(self.node_number) + " did not move in time step " + str(self.Time))
         self.x = -1
         self.y = -1
 
     # Default algorithm for the soldier to move out of the red zone if possible, else register a hit
-    def move(self, hit_x, hit_y, radius):
+    def move(self, hit_x, hit_y, radius):        
+        self.Time = self.Time + 1
+        logger.debug("Received red zone from commander at " + str(self.Time))
         self.clear_grid()
         self.display_red_region(hit_x, hit_y, radius)
         canvas.update()
@@ -498,7 +476,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
         self.update_info()
 
         old_x, old_y = self.x, self.y
-        self.movement_dialogue_box(window)
+        if self.speed != 0:
+            self.movement_dialogue_box(window)
 
         if self.x != -1 and self.y != -1:
             if abs(hit_x - self.x) < radius and abs(hit_y - self.y) < radius:
@@ -527,7 +506,6 @@ class Server(soldier_pb2_grpc.AlertServicer):
                     self.move_soldier(self.x, self.y)
                     self.update_info()
                     return self.RegisterHit()
-
         
         logger.debug("Soldier lives: " + str(self.lives))
         logger.debug("Soldier position: " + str(self.x) + ", " + str(self.y))
@@ -537,7 +515,6 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
     # RPC access point for the commander to send the red zone to the soldier and get a status update
     def UpdateStatus(self, request, context):
-        logger.debug("Received red zone from commander")
         logger.debug(
             "Coordinates received: " + str(request.pos.x) + ", " + str(request.pos.y)
         )
