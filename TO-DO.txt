@@ -1,3 +1,1 @@
-1) Take inputs:
-    a) Player Movement
-
+"Dobby is FREE!!"
