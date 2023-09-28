@@ -93,6 +93,9 @@ class Server(soldier_pb2_grpc.AlertServicer):
             fill=self.get_player_color(self.player),
         )
 
+        self.move_soldier(self.x, self.y)
+        self.update_info()
+
     # RPC access point for connector to relay results of the war
 
     def SendResult(self, request, context):
@@ -212,8 +215,8 @@ class Server(soldier_pb2_grpc.AlertServicer):
         # Destroy the message box
         box.destroy()
 
-        # Kill all the processes with python3
-        os.system("kill -9 $(pgrep python3 | awk '$1>=" + str(1000) + "')")
+        # Kill self
+        os.system("kill -9 $(pgrep python3 | awk '$1==" + str(os.getpid()) + "')")
         sys.exit(0)
 
     # Function used to update the soldier parameters when they are hit by a missile
@@ -368,7 +371,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
     def open_attacking_phase(self, window):
         # Create a new window for the attacking phase
         attacking_phase_window = tk.Toplevel(window)
-        attacking_phase_window.title("Attacking Phase")
+        attacking_phase_window.title("Attack Player " + str(1 - self.player))
 
         # Create a canvas to draw the grid in the attacking phase window
         attacking_phase_canvas = tk.Canvas(
@@ -400,88 +403,91 @@ class Server(soldier_pb2_grpc.AlertServicer):
             10000,
             lambda: self.close_attacking_phase_window(attacking_phase_window, window),
         )
+    
+    # class movement_dialogue_box(tkinter.simpledialog.Dialog):
+    #     def __init__(self, parent, x, y, speed, N):
+    #         self.x = x
+    #         self.y = y
+    #         self.speed = speed
+    #         self.N = N
+    #         super().__init__(parent)
 
-    class movement_dialogue_box(tkinter.simpledialog.Dialog):
-        def __init__(self, parent, x, y, speed, N):
-            self.x = x
-            self.y = y
-            self.speed = speed
-            self.N = N
-            super().__init__(parent)
-            self.after(5000, self.close_window)
+    #     def button_box(self):
+    #         box = tk.Frame(self)
+    #         movement_buttons = []
+    #         for y in range(max(0, self.y - self.speed), min(self.N - 1, self.y + self.speed + 1)):
+    #             row = []
+    #             for x in range(max(0, self.x - self.speed), min(self.N - 1, self.x + self.speed + 1)):
+    #                 button = tk.Button(
+    #                     box,
+    #                     text=f"({x}, {y})",
+    #                     # Get the chosen coordinate
+    #                     command=lambda x=x, y=y: self.motion_button_click(x, y, box),
+    #                 )
+    #                 button.grid(row=y, column=x)
+    #                 row.append(button)
+    #             movement_buttons.append(row)
+    #         box.pack()
 
-        def button_box(self):
-            box = tk.Frame(self)
-            movement_buttons = []
-            for y in range(max(0, self.y - self.speed), min(self.N - 1, self.y + self.speed + 1)):
-                row = []
-                for x in range(max(0, self.x - self.speed), min(self.N - 1, self.x + self.speed + 1)):
-                    button = tk.Button(
-                        box,
-                        text=f"({x}, {y})",
-                        # Get the chosen coordinate
-                        command=lambda x=x, y=y: self.motion_button_click(x, y, box),
-                    )
-                    button.grid(row=y, column=x)
-                    row.append(button)
-                movement_buttons.append(row)
-            box.pack()
+    #     def motion_button_click(self, x, y, box):
+    #         self.x = x
+    #         self.y = y
+    #         box.destroy()
 
-        def motion_button_click(self, x, y, box):
-            self.x = x
-            self.y = y
-            # Close the box
-            box.destroy()
-
-        def body(self, master):
-            self.button_box()
-            return None
+    #     def body(self, master):
+    #         self.button_box()
+    #         return None
         
-        def close_window(self):
-            self.destroy()
-            self.x = -1
-            self.y = -1
+    def movement_dialogue_box(self, window):
+        # Create a new window for the moving phase
+        moving_phase_window = tk.Toplevel(window)
+        moving_phase_window.title("Moving Phase for Soldier " + str(self.node_number))
 
-    class movement_dialogue_box(tkinter.simpledialog.Dialog):
-        def __init__(self, parent, x, y, speed, N):
-            self.x = x
-            self.y = y
-            self.speed = speed
-            self.N = N
-            super().__init__(parent)
-            self.after(5000, self.close_window)
+        # Create a canvas to draw the grid in the moving phase window
+        moving_phase_canvas = tk.Canvas(
+            moving_phase_window, width= (2*self.speed + 1) * GRID_CELL_SIZE, height=(2*self.speed + 1) * GRID_CELL_SIZE
+        )
+        moving_phase_canvas.pack()
 
-        def button_box(self):
-            box = tk.Frame(self)
-            movement_buttons = []
-            for y in range(max(0, self.y - self.speed), min(self.N - 1, self.y + self.speed + 1)):
-                row = []
-                for x in range(max(0, self.x - self.speed), min(self.N - 1, self.x + self.speed + 1)):
-                    button = tk.Button(
-                        box,
-                        text=f"({x}, {y})",
-                        # Get the chosen coordinate
-                        command=lambda x=x, y=y: self.motion_button_click(x, y, box),
-                    )
-                    button.grid(row=y, column=x)
-                    row.append(button)
-                movement_buttons.append(row)
-            box.pack()
+        # Create a 2D list to store the grid buttons
+        movinging_phase_buttons = []
 
-        def motion_button_click(self, x, y, box):
-            self.x = x
-            self.y = y
-            # Close the box
-            box.destroy()
+        # Initialize the grid buttons in the moving phase window
+        for y in range(max(0, self.y - self.speed), min(N, self.y + self.speed + 1)):
+            row = []
+            for x in range(max(0, self.x - self.speed), min(N, self.x + self.speed + 1)):
+                colour = self.get_player_color(self.player) if (x == self.x and y == self.y) else "white"
+                text_colour = "white" if (x == self.x and y == self.y) else "black"
+                button = tk.Button(
+                    moving_phase_canvas,
+                    text=f"({x}, {y})",
+                    # Pass coordinates to button_click function
+                    command=lambda x=x, y=y: self.move_button_click(
+                        x, y, moving_phase_window, window
+                    ),
+                    bg=colour,
+                    fg=text_colour,
+                )
+                button.grid(row=y, column=x)
+                row.append(button)
+            movinging_phase_buttons.append(row)
 
-        def body(self, master):
-            self.button_box()
-            return None
-        
-        def close_window(self):
-            self.destroy()
-            self.x = -1
-            self.y = -1
+        # Set a timeout timer for the commander to select the coordinates to attack
+        moving_phase_window.after(
+            10000,
+            lambda: self.close_moving_phase_window(moving_phase_window, window),
+        )
+        moving_phase_window.wait_window()
+
+    def move_button_click(self, x, y, moving_phase_window, window):
+        self.x = x
+        self.y = y
+        moving_phase_window.destroy()
+    
+    def close_moving_phase_window(self, moving_phase_window, window):
+        moving_phase_window.destroy()
+        self.x = -1
+        self.y = -1
 
     # Default algorithm for the soldier to move out of the red zone if possible, else register a hit
     def move(self, hit_x, hit_y, radius):
@@ -491,15 +497,16 @@ class Server(soldier_pb2_grpc.AlertServicer):
         self.move_soldier(self.x, self.y)
         self.update_info()
 
-        input = self.movement_dialogue_box(window, self.x, self.y, self.speed, self.N)
-        if input.x != -1 and input.y != -1:
-            self.x = input.x
-            self.y = input.y
+        old_x, old_y = self.x, self.y
+        self.movement_dialogue_box(window)
+
+        if self.x != -1 and self.y != -1:
             if abs(hit_x - self.x) < radius and abs(hit_y - self.y) < radius:
                 self.move_soldier(self.x, self.y)
                 self.update_info()
                 return self.RegisterHit()
         else:
+            self.x, self.y = old_x, old_y
             # Check if the soldier is in the red zone using manhattan distance
             if abs(hit_x - self.x) < radius and abs(hit_y - self.y) < radius:
                 # If the soldier is in the red zone, try to move out of it
@@ -633,7 +640,7 @@ if __name__ == "__main__":
 
     # Create a tkinter window and canvas for GUI
     window = tk.Tk()
-    window.title("Soldier Grid")
+    window.title("Player " + str(player) + ": Soldier " + str(node_number))
 
     # Initialize game variables
     GRID_SIZE = N

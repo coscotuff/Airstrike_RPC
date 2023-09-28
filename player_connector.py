@@ -34,6 +34,7 @@ class Server(connector_pb2_grpc.PassAlertServicer):
 
         # Initialise the battalion, grid size, and player number of the team.
         self.battalion = []
+        self.entire_battalion = []
         self.N = N
         self.M = M
         self.player = player
@@ -235,18 +236,14 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             print("It's a tie!")
             logger.debug("It's a tie!")
 
-        # Make RPC call here to inform commander of the result
-        logger.debug("Sending result to commander: " + str(result))
-
-        if self.commander.port == -1:
-            self.commander.port = 50050 + self.player * 10011
-            self.commander.ip_address = self.initial_ip_address
-
-        with grpc.insecure_channel(
-            self.commander.ip_address + ":" + str(self.commander.port)
-        ) as channel:
-            stub = soldier_pb2_grpc.AlertStub(channel)
-            response = stub.SendResult(soldier_pb2.WarResult(result=result))
+        # Make RPC call here to inform entire battalion of the result
+        logger.debug("Sending result to battalion: " + str(result))
+        for soldier in self.entire_battalion:
+            with grpc.insecure_channel(
+                soldier.ip_address + ":" + str(soldier.port)
+            ) as channel:
+                stub = soldier_pb2_grpc.AlertStub(channel)
+                response = stub.SendResult(soldier_pb2.WarResult(result=result))
 
         # initiate exit here (call initiate exit function) using multithreading
         logger.debug("Exiting...")
@@ -361,6 +358,7 @@ class Server(connector_pb2_grpc.PassAlertServicer):
         )
         if self.num_nodes == M:
             logger.debug("All nodes registered")
+            self.entire_battalion = self.battalion
             threading.Thread(target=self.RegisterEnemyRPCCall, daemon=True).start()
         print("Returning void after RegisterNode")
         return soldier_pb2.void()
@@ -375,13 +373,11 @@ class Server(connector_pb2_grpc.PassAlertServicer):
             threading.Thread(target=self.CompareTimestamps, daemon=True).start()
         return soldier_pb2.void()
 
-    # Nuclear launch codes to terminate all the programs initialised by the bash shell script
+    # Nuclear launch codes to terminate self
     def TerminateProgram(self):
         # Nuclear launch codes
         time.sleep(10)
-        MIN_PID = os.getpid()
-        print("KILLING")
-        os.system("kill -9 $(pgrep python3 | awk '$1>=" + str(MIN_PID) + "')")
+        os.system("kill -9 $(pgrep python3 | awk '$1==" + str(os.getpid()) + "')")
         sys.exit(0)
 
 
