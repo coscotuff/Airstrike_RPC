@@ -4,9 +4,9 @@ Airstrike_RPC is a Python-based project that leverages gRPC, RPC calls, and prot
 This repository contains the codebase for a streamlined and high-performance remote procedure call system designed for a game that is a part of the assignment from the Semester-I '23-24 offering of the CS G623 Advanced (Distributed) Operating Systems course.
 
 ## Running Instructions
-_Note:
-1) The operating systems of the machines on which the files are to be run must be Linux based
-2) Ensure that all the required software and libraries are installed on your system. For more information on which libraries and software are needed, kindly go through technical design documentation._
+_Note:_
+_1) The operating systems of the machines on which the files are to be run must be Linux based._
+_2) Ensure that all the required software and libraries are installed on your system. For more information on which libraries and software are needed, kindly go through technical design documentation._
 
 First raise the privillege of the corrsponding shell script file that is to be run using chmod +x filename
 
