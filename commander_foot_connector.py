@@ -413,7 +413,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
             lambda: self.close_attacking_phase_window(attacking_phase_window, window),
         )
         
-    def movement_dialogue_box(self, window):
+    def movement_dialogue_box(self, window, hit_x, hit_y, radius):
         # Create a new window for the moving phase
         moving_phase_window = tk.Toplevel(window)
         moving_phase_window.title("Moving Phase for Soldier " + str(self.node_number))
@@ -426,12 +426,16 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
         # Create a 2D list to store the grid buttons
         moving_phase_buttons = []
-        # Initialize the grid buttons in the moving phase window
-        for y in range(max(0, self.y - self.speed), min(N, self.y + self.speed + 1)):
+
+        for y in range(self.N):
             row = []
-            for x in range(max(0, self.x - self.speed), min(N, self.x + self.speed + 1)):
+            for x in range(self.N):
                 colour = self.get_player_color(self.player) if (x == self.x and y == self.y) else "white"
                 text_colour = "white" if (x == self.x and y == self.y) else "black"
+                if abs(hit_x - x) < radius and abs(hit_y - y) < radius:
+                    text_colour = "red"
+                Enable = tk.NORMAL if (abs(x - self.x) <= self.speed and abs(y - self.y) <= self.speed) else tk.DISABLED
+                # Set dimensions of the button to be GRID_CELL_SIZE
                 button = tk.Button(
                     moving_phase_canvas,
                     text=f"({x}, {y})",
@@ -441,7 +445,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
                     ),
                     bg=colour,
                     fg=text_colour,
-                    state=tk.NORMAL,
+                    state=Enable,
                 )
                 button.grid(row=y, column=x)
                 row.append(button)
@@ -477,7 +481,7 @@ class Server(soldier_pb2_grpc.AlertServicer):
 
         old_x, old_y = self.x, self.y
         if self.speed != 0:
-            self.movement_dialogue_box(window)
+            self.movement_dialogue_box(window, hit_x, hit_y, radius)
 
         if self.x != -1 and self.y != -1:
             if abs(hit_x - self.x) < radius and abs(hit_y - self.y) < radius:
