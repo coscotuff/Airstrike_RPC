@@ -48,3 +48,8 @@
 2023-09-27 17:47:21,082 Soldier died
 2023-09-27 17:47:21,082 Soldier lives: 0
 2023-09-27 17:47:21,082 Soldier position: 0, 0
+2023-09-28 00:24:26,951 Soldier speed: 4
+2023-09-28 00:24:26,952 Soldier position: 2, 7
+2023-09-28 00:24:26,952 Connector port: 60060
+2023-09-28 00:24:26,965 Registered self to connector
+2023-09-28 00:24:27,193 Soldier started listening on port 60062.

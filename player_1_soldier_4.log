@@ -28,3 +28,8 @@
 2023-09-27 17:00:06,681 Radius received: 3
 2023-09-27 17:00:06,686 Soldier lives: 3
 2023-09-27 17:00:06,686 Soldier position: 5, 2
+2023-09-28 00:24:27,192 Soldier speed: 2
+2023-09-28 00:24:27,193 Soldier position: 8, 0
+2023-09-28 00:24:27,193 Connector port: 60060
+2023-09-28 00:24:27,206 Soldier started listening on port 60064.
+2023-09-28 00:24:27,208 Registered self to connector

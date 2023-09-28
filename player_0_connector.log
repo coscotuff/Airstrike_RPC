@@ -71,3 +71,17 @@
 2023-09-27 17:47:21,084 Congratulations, you win!
 2023-09-27 17:47:21,084 Sending result to commander: 1
 2023-09-27 17:47:21,085 Exiting...
+2023-09-28 00:24:23,647 Server started listening on port 50050...
+2023-09-28 00:24:26,524 Registering node: 2 IP:172.17.74.74:50052
+2023-09-28 00:24:26,582 Registering node: 4 IP:172.17.74.74:50054
+2023-09-28 00:24:27,225 Registering node: 3 IP:172.17.74.74:50053
+2023-09-28 00:24:27,239 Registering node: 1 IP:172.17.74.74:50051
+2023-09-28 00:24:27,243 Registering node: 5 IP:172.17.74.74:50055
+2023-09-28 00:24:27,243 All nodes registered
+2023-09-28 00:24:27,243 Register to enemy...
+2023-09-28 00:24:27,254 Registered to enemy
+2023-09-28 00:24:27,271 Registering enemy: 1
+2023-09-28 00:24:27,271 Both teams registered
+2023-09-28 00:24:27,271 Starting game...
+2023-09-28 00:24:27,271 Initial commander: 5
+2023-09-28 00:24:27,274 Sending RPC to commander to Attack

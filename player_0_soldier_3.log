@@ -43,3 +43,8 @@
 2023-09-27 17:00:09,930 Soldier lives: 3
 2023-09-27 17:00:09,930 Soldier position: 4, 1
 2023-09-27 17:00:09,954 Received result: -1
+2023-09-28 00:24:27,213 Soldier speed: 3
+2023-09-28 00:24:27,214 Soldier position: 2, 1
+2023-09-28 00:24:27,214 Connector port: 50050
+2023-09-28 00:24:27,226 Registered self to connector
+2023-09-28 00:24:27,228 Soldier started listening on port 50053.

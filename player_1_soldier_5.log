@@ -39,3 +39,8 @@
 2023-09-27 17:00:08,860 Initiating attack
 2023-09-27 17:00:09,954 Received result: 1
 2023-09-27 17:00:09,955 Returned from connector: 0, 0, 0
+2023-09-28 00:24:27,223 Soldier speed: 4
+2023-09-28 00:24:27,224 Soldier position: 1, 7
+2023-09-28 00:24:27,224 Connector port: 60060
+2023-09-28 00:24:27,232 Soldier started listening on port 60065.
+2023-09-28 00:24:27,235 Registered self to connector

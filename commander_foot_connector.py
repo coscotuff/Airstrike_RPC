@@ -12,6 +12,7 @@ import time
 import tkinter as tk
 from concurrent import futures
 from tkinter import Canvas, messagebox
+import tkinter.simpledialog
 
 import grpc
 
@@ -400,6 +401,88 @@ class Server(soldier_pb2_grpc.AlertServicer):
             lambda: self.close_attacking_phase_window(attacking_phase_window, window),
         )
 
+    class movement_dialogue_box(tkinter.simpledialog.Dialog):
+        def __init__(self, parent, x, y, speed, N):
+            self.x = x
+            self.y = y
+            self.speed = speed
+            self.N = N
+            super().__init__(parent)
+            self.after(5000, self.close_window)
+
+        def button_box(self):
+            box = tk.Frame(self)
+            movement_buttons = []
+            for y in range(max(0, self.y - self.speed), min(self.N - 1, self.y + self.speed + 1)):
+                row = []
+                for x in range(max(0, self.x - self.speed), min(self.N - 1, self.x + self.speed + 1)):
+                    button = tk.Button(
+                        box,
+                        text=f"({x}, {y})",
+                        # Get the chosen coordinate
+                        command=lambda x=x, y=y: self.motion_button_click(x, y, box),
+                    )
+                    button.grid(row=y, column=x)
+                    row.append(button)
+                movement_buttons.append(row)
+            box.pack()
+
+        def motion_button_click(self, x, y, box):
+            self.x = x
+            self.y = y
+            # Close the box
+            box.destroy()
+
+        def body(self, master):
+            self.button_box()
+            return None
+        
+        def close_window(self):
+            self.destroy()
+            self.x = -1
+            self.y = -1
+
+    class movement_dialogue_box(tkinter.simpledialog.Dialog):
+        def __init__(self, parent, x, y, speed, N):
+            self.x = x
+            self.y = y
+            self.speed = speed
+            self.N = N
+            super().__init__(parent)
+            self.after(5000, self.close_window)
+
+        def button_box(self):
+            box = tk.Frame(self)
+            movement_buttons = []
+            for y in range(max(0, self.y - self.speed), min(self.N - 1, self.y + self.speed + 1)):
+                row = []
+                for x in range(max(0, self.x - self.speed), min(self.N - 1, self.x + self.speed + 1)):
+                    button = tk.Button(
+                        box,
+                        text=f"({x}, {y})",
+                        # Get the chosen coordinate
+                        command=lambda x=x, y=y: self.motion_button_click(x, y, box),
+                    )
+                    button.grid(row=y, column=x)
+                    row.append(button)
+                movement_buttons.append(row)
+            box.pack()
+
+        def motion_button_click(self, x, y, box):
+            self.x = x
+            self.y = y
+            # Close the box
+            box.destroy()
+
+        def body(self, master):
+            self.button_box()
+            return None
+        
+        def close_window(self):
+            self.destroy()
+            self.x = -1
+            self.y = -1
+
     # Default algorithm for the soldier to move out of the red zone if possible, else register a hit
     def move(self, hit_x, hit_y, radius):
         self.clear_grid()
@@ -408,26 +491,37 @@ class Server(soldier_pb2_grpc.AlertServicer):
         self.move_soldier(self.x, self.y)
         self.update_info()
 
-        # Check if the soldier is in the red zone using manhattan distance
-        if abs(hit_x - self.x) < radius and abs(hit_y - self.y) < radius:
-            # If the soldier is in the red zone, try to move out of it
-            if abs(min(self.x + self.speed, self.N - 1) - hit_x) >= radius:
-                self.x = min(self.x + self.speed, self.N - 1)
-            elif abs(max(self.x - self.speed, 0) - hit_x) >= radius:
-                self.x = max(self.x - self.speed, 0)
-            else:
+        input = self.movement_dialogue_box(window, self.x, self.y, self.speed, self.N)
+        if input.x != -1 and input.y != -1:
+            self.x = input.x
+            self.y = input.y
+            if abs(hit_x - self.x) < radius and abs(hit_y - self.y) < radius:
                 self.move_soldier(self.x, self.y)
                 self.update_info()
                 return self.RegisterHit()
+        else:
+            # Check if the soldier is in the red zone using manhattan distance
+            if abs(hit_x - self.x) < radius and abs(hit_y - self.y) < radius:
+                # If the soldier is in the red zone, try to move out of it
+                if abs(min(self.x + self.speed, self.N - 1) - hit_x) >= radius:
+                    self.x = min(self.x + self.speed, self.N - 1)
+                elif abs(max(self.x - self.speed, 0) - hit_x) >= radius:
+                    self.x = max(self.x - self.speed, 0)
+                else:
+                    self.move_soldier(self.x, self.y)
+                    self.update_info()
+                    return self.RegisterHit()
 
-            if abs(min(self.y + self.speed, self.N - 1) - hit_y) >= radius:
-                self.y = min(self.y + self.speed, self.N - 1)
-            elif abs(max(self.y - self.speed, 0) - hit_y) >= radius:
-                self.y = max(self.y - self.speed, 0)
-            else:
-                self.move_soldier(self.x, self.y)
-                self.update_info()
-                return self.RegisterHit()
+                if abs(min(self.y + self.speed, self.N - 1) - hit_y) >= radius:
+                    self.y = min(self.y + self.speed, self.N - 1)
+                elif abs(max(self.y - self.speed, 0) - hit_y) >= radius:
+                    self.y = max(self.y - self.speed, 0)
+                else:
+                    self.move_soldier(self.x, self.y)
+                    self.update_info()
+                    return self.RegisterHit()
+
+        
         logger.debug("Soldier lives: " + str(self.lives))
         logger.debug("Soldier position: " + str(self.x) + ", " + str(self.y))
         self.move_soldier(self.x, self.y)
