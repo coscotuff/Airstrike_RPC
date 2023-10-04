@@ -3,6 +3,23 @@ Airstrike_RPC is a Python-based project that leverages gRPC, RPC calls, and prot
 
 This repository contains the codebase for a streamlined and high-performance remote procedure call system designed for a game that is a part of the assignment from the Semester-I '23-24 offering of the CS G623 Advanced (Distributed) Operating Systems course.
 
+## Requirements
+
+- Python 3.x
+- gRPC (Google Remote Procedure Call): gRPC tools and gRPC Python Library
+- TKinter package (sudo apt-get install python3-tk)
+- Protobuf  ‘protoc’  compiler (for .proto files)
+- Threading Python Library
+- Random Python Library
+- OS Python Library
+- Socket Python Library
+- Logging Python Library
+- Time Python Library
+- Socket Python Library
+- Protobuf Python Library
+
+Please ensure that you have these dependencies installed before running the script.
+
 ## Running Instructions
 _Note:_
 _1) The operating systems of the machines on which the files are to be run must be Linux-based._
