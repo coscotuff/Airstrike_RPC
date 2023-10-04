@@ -1,4 +1,1 @@
 "Dobby is FREE!!"
-
-TECH DESIGN DOC
-MENTION ABOUT HYPERPARAMETERS (and why no customize)
